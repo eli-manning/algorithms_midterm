@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algorithms Midterm — Dr. Kim</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080810;
+  --s1: #0f0f1a;
+  --s2: #161625;
+  --border: #252538;
+  --border2: #32324a;
+  --blue: #6b9fff;
+  --green: #4dffa8;
+  --yellow: #ffd166;
+  --pink: #ff6b9d;
+  --purple: #b57bee;
+  --text: #e2e2f0;
+  --muted: #6666a0;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;font-size:15px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,8,16,0.96);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem;backdrop-filter:blur(10px)}
+.logo{font-family:var(--mono);font-size:.85rem;color:var(--blue);font-weight:600;white-space:nowrap;flex-shrink:0}
+.navlinks{display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navbtn{font-family:var(--mono);font-size:.65rem;padding:.3rem .7rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
+.navbtn:hover{color:var(--blue);border-color:var(--blue)}
+.navbtn.on{background:var(--blue);color:#000;border-color:var(--blue);font-weight:600}
+
+/* LAYOUT */
+.wrap{padding-top:52px;max-width:860px;margin:0 auto;padding-left:1.25rem;padding-right:1.25rem}
+.page{display:none;padding:2.5rem 0 6rem}
+.page.on{display:block}
+
+/* HOME */
+.home-hero{padding:3.5rem 0 2rem;text-align:center}
+.home-hero h1{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1}
+.home-hero h1 em{color:var(--blue);font-style:normal}
+.home-hero p{color:var(--muted);margin-top:.75rem;font-size:.95rem}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.75rem;margin-top:2rem}
+.pcard{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1rem;cursor:pointer;transition:all .2s;text-align:center}
+.pcard:hover{border-color:var(--blue);transform:translateY(-2px)}
+.pcard .icon{font-size:1.75rem;margin-bottom:.5rem}
+.pcard .num{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-bottom:.3rem}
+.pcard .ttl{font-size:.82rem;font-weight:700;line-height:1.3}
+.notice{margin-top:1.5rem;background:rgba(107,159,255,.07);border:1px solid rgba(107,159,255,.25);border-radius:10px;padding:1rem 1.25rem;font-size:.88rem;line-height:1.6}
+.notice strong{color:var(--yellow)}
+
+/* SECTION HEADER */
+.sec-head{margin-bottom:2rem}
+.sec-head h2{font-size:1.6rem;font-weight:800}
+.sec-head h2 span{color:var(--blue)}
+.sec-head p{color:var(--muted);font-family:var(--mono);font-size:.72rem;margin-top:.3rem}
+.badge{display:inline-block;font-family:var(--mono);font-size:.6rem;padding:.2rem .5rem;border-radius:4px;margin-right:.3rem;vertical-align:middle}
+.badge.dp{background:rgba(107,159,255,.15);color:var(--blue)}
+.badge.gr{background:rgba(77,255,168,.15);color:var(--green)}
+.badge.an{background:rgba(255,209,102,.15);color:var(--yellow)}
+
+/* QUESTION BLOCKS */
+.qblock{margin-bottom:2rem}
+.qhead{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem}
+.qnum{font-family:var(--mono);font-size:.7rem;background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;color:var(--blue);flex-shrink:0;margin-top:.1rem}
+.qtxt{font-weight:700;font-size:1rem;line-height:1.5;color:var(--text)}
+.qsub{color:#a0a0c8;font-size:.88rem;line-height:1.6;margin-bottom:.75rem;padding-left:2.5rem}
+
+/* REVEAL */
+.reveal-wrap{padding-left:2.5rem}
+.rbtn{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.7rem;padding:.4rem .9rem;border-radius:6px;border:1px dashed var(--yellow);background:rgba(255,209,102,.05);color:var(--yellow);cursor:pointer;transition:all .2s;margin-bottom:.6rem}
+.rbtn:hover{background:rgba(255,209,102,.12);border-style:solid}
+.rbtn.open{border-color:var(--muted);color:var(--muted);background:transparent;border-style:dashed}
+.answer{display:none;animation:fadeUp .25s ease}
+.answer.open{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ANSWER CONTENT COMPONENTS */
+.ans-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:.75rem}
+.ans-card p{line-height:1.75;color:#c0c0e0;font-size:.92rem}
+.ans-card ul,
+.ans-card ol{padding-left:1.2rem;color:#c0c0e0;font-size:.92rem}
+.ans-card li{margin-bottom:.35rem;line-height:1.7}
+.ans-card h4{font-size:.85rem;font-weight:700;margin-bottom:.6rem;color:var(--text)}
+.hl{color:var(--blue);font-weight:700}
+.hl2{color:var(--green);font-weight:700}
+.hl3{color:var(--yellow);font-weight:700}
+.hl4{color:var(--pink);font-weight:700}
+.hl5{color:var(--purple);font-weight:700}
+
+.formula{background:#0a0a18;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;font-family:var(--mono);font-size:.85rem;color:var(--blue);margin:.6rem 0;line-height:1.6}
+
+.code{background:#0a0a18;border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;font-family:var(--mono);font-size:.78rem;line-height:1.9;overflow-x:auto;margin:.6rem 0;color:#bbd0ff}
+.code .kw{color:var(--pink)}
+.code .cm{color:#445;font-style:italic}
+.code .nm{color:var(--yellow)}
+
+.callout{border-radius:8px;padding:.9rem 1.1rem;margin:.6rem 0;border:1px solid;font-size:.88rem;line-height:1.65}
+.callout strong{display:block;font-size:.72rem;font-family:var(--mono);margin-bottom:.3rem;letter-spacing:.04em}
+.callout.ok{background:rgba(77,255,168,.06);border-color:rgba(77,255,168,.25)}
+.callout.ok strong{color:var(--green)}
+.callout.info{background:rgba(107,159,255,.06);border-color:rgba(107,159,255,.25)}
+.callout.info strong{color:var(--blue)}
+.callout.warn{background:rgba(255,209,102,.06);border-color:rgba(255,209,102,.25)}
+.callout.warn strong{color:var(--yellow)}
+.callout.note{background:rgba(181,123,238,.06);border-color:rgba(181,123,238,.25)}
+.callout.note strong{color:var(--purple)}
+.callout p,
+.callout li{color:#c0c0e0}
+.callout ul{padding-left:1.1rem;margin-top:.3rem}
+
+.tw{overflow-x:auto;margin:.6rem 0}
+table{border-collapse:collapse;font-family:var(--mono);font-size:.75rem;width:100%}
+th{background:var(--s2);padding:.45rem .7rem;border:1px solid var(--border);color:var(--blue);text-align:center}
+td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#c0c0e0}
+.tc{background:rgba(77,255,168,.12)!important;color:var(--green);font-weight:700}
+.tm{color:var(--muted)}
+.ty{color:var(--yellow);font-weight:700}
+
+.big{font-family:var(--mono);font-size:1.8rem;font-weight:700;color:var(--green);text-align:center;padding:1.25rem;background:var(--s1);border:1px solid var(--border);border-radius:10px;margin:.6rem 0}
+
+.divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
+
+/* SUB LABEL inside qblock for lettered parts */
+.sublabel{font-family:var(--mono);font-size:.7rem;color:var(--purple);background:rgba(181,123,238,.1);border:1px solid rgba(181,123,238,.2);border-radius:5px;padding:.2rem .5rem;margin-bottom:.5rem;display:inline-block}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">ALGO 🎯</div>
+  <div class="navlinks">
+    <button class="navbtn on" onclick="goTo('home',this)">Home</button>
+    <button class="navbtn" onclick="goTo('p1',this)">P1 · Time Complexity</button>
+    <button class="navbtn" onclick="goTo('p2',this)">P2 · Matrix Chain DP</button>
+    <button class="navbtn" onclick="goTo('p3',this)">P3 · 0/1 Knapsack</button>
+    <button class="navbtn" onclick="goTo('p4',this)">P4 · Huffman</button>
+    <button class="navbtn" onclick="goTo('p5',this)">P5 · Fractional Knapsack</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ═══════════════════════════════════════════ HOME -->
+<div class="page on" id="home">
+  <div class="home-hero">
+    <h1>Algorithms Midterm<br><em>Study Guide</em></h1>
+    <p>Every sub-question from every problem — answer hidden until you're ready.</p>
+  </div>
+  <div class="pgrid">
+    <div class="pcard" onclick="goTo('p1',null)"><div class="icon">📐</div><div class="num">PROBLEM 1</div><div class="ttl">Time Complexity & Master Theorem</div></div>
+    <div class="pcard" onclick="goTo('p2',null)"><div class="icon">🔗</div><div class="num">PROBLEM 2</div><div class="ttl">Matrix Chain Multiplication (DP)</div></div>
+    <div class="pcard" onclick="goTo('p3',null)"><div class="icon">🎒</div><div class="num">PROBLEM 3</div><div class="ttl">0/1 Knapsack (DP)</div></div>
+    <div class="pcard" onclick="goTo('p4',null)"><div class="icon">🌳</div><div class="num">PROBLEM 4</div><div class="ttl">Huffman Encoding (Greedy)</div></div>
+    <div class="pcard" onclick="goTo('p5',null)"><div class="icon">⚖️</div><div class="num">PROBLEM 5</div><div class="ttl">Fractional Knapsack (Greedy)</div></div>
+  </div>
+  <div class="notice">
+    <strong>⚠️ Dr. Kim's Rules:</strong> He picks <strong>3 of 5</strong> on the exam. Show all work — no work shown = max 70/100. Late = −20%. Paper only, no laptops.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROBLEM 1 -->
+<div class="page" id="p1">
+  <div class="sec-head">
+    <h2><span>Problem 1</span> — Time Complexity of Matrix Multiplication</h2>
+    <p><span class="badge an">TIME ANALYSIS</span> Three algorithms · Big-Theta · Master Theorem</p>
+  </div>
+
+  <div class="callout info" style="margin-bottom:2rem">
+    <strong>SETUP</strong>
+    <p>Consider the multiplication of two <strong>n × n</strong> matrices. You will analyze 3 algorithms: iterative, divide-and-conquer recursive, and Strassen's. For each, determine the time complexity.</p>
+  </div>
+
+  <!-- PART A -->
+  <h3 style="font-size:1rem;margin-bottom:1rem;color:var(--purple)">Part A — Iterative Matrix Multiplication</h3>
+
+  <div class="callout info" style="margin-bottom:1.25rem">
+    <strong>THE ALGORITHM</strong>
+    <div class="code" style="margin:.4rem 0 0">
+<span class="kw">for</span> i = 1 <span class="kw">to</span> n
+  <span class="kw">for</span> j = 1 <span class="kw">to</span> n
+    C[i][j] = 0
+    <span class="kw">for</span> k = 1 <span class="kw">to</span> n
+      C[i][j] = C[i][j] + A[i][k] * B[k][j]  <span class="cm">← count this line</span></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">A·Q1</div><div class="qtxt">How many times does the innermost multiplication operation execute?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <ul>
+            <li>Outer loop (i) runs <span class="hl">n</span> times</li>
+            <li>Middle loop (j) runs <span class="hl">n</span> times per i → n² total (i,j) pairs</li>
+            <li>Inner loop (k) runs <span class="hl">n</span> times per (i,j) pair</li>
+            <li>Total = n × n × n = <span class="hl2">n³ multiplications</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">A·Q2</div><div class="qtxt">Express the running time as a function of n.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card"><p>Each loop iteration performs <strong>constant work</strong>. Since the innermost line runs <span class="hl2">n³</span> times total, the running time is <span class="hl2">T(n) = n³</span>.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">A·Q3</div><div class="qtxt">Give the final time complexity using Big-Theta notation.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">T(n) = Θ(n³)</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <!-- PART B -->
+  <h3 style="font-size:1rem;margin:1.25rem 0 1rem;color:var(--purple)">Part B — Recursive Divide and Conquer</h3>
+
+  <div class="callout info" style="margin-bottom:1.25rem">
+    <strong>SETUP</strong>
+    <p>Matrices are split into four <strong>(n/2 × n/2)</strong> blocks and multiplied recursively. This requires 8 recursive multiplications plus addition work costing Θ(n²).</p>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">B·Q1</div><div class="qtxt">How many recursive matrix multiplications occur?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card"><p>Each n×n matrix is divided into four (n/2 × n/2) blocks. To compute the product using block multiplication, <span class="hl2">8 recursive multiplications</span> are performed.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">B·Q2</div><div class="qtxt">What is the size of each recursive subproblem?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card"><p>Each recursive call works on matrices of size <span class="hl2">n/2 × n/2</span>.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">B·Q3</div><div class="qtxt">Write the recurrence relation T(n).</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">T(n) = 8T(n/2) + Θ(n²)</div>
+        <div class="callout info"><strong>WHY?</strong><p>8 subproblems each of size n/2, plus Θ(n²) work for the matrix additions/combinations.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">B·Q4</div><div class="qtxt">Use the Master Theorem to solve the recurrence. Show a, b, f(n), and which case applies.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <h4>Master Theorem: T(n) = aT(n/b) + f(n)</h4>
+          <ul>
+            <li><span class="hl">a = 8</span> (number of subproblems)</li>
+            <li><span class="hl">b = 2</span> (subproblem size factor)</li>
+            <li><span class="hl">f(n) = Θ(n²)</span> (work outside recursion)</li>
+          </ul>
+          <br>
+          <p>Critical exponent: <span class="hl3">log<sub>b</sub>(a) = log<sub>2</sub>(8) = 3</span></p>
+          <br>
+          <p>Compare f(n) = n² with n<sup>3</sup>:</p>
+          <p>f(n) grows <strong>slower</strong> than n³ → <span class="hl2">Case 1 applies</span></p>
+        </div>
+        <div class="callout warn"><strong>MASTER THEOREM CASE 1</strong><p>If f(n) = O(n<sup>c−ε</sup>) for some ε &gt; 0 where c = log<sub>b</sub>(a), then T(n) = Θ(n<sup>c</sup>)</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">B·Q5</div><div class="qtxt">State the final time complexity.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">T(n) = Θ(n³)</div>
+        <div class="callout ok"><strong>INSIGHT</strong><p>Same as the brute-force iterative algorithm! Dividing into subproblems didn't help here — still Θ(n³).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <!-- PART C -->
+  <h3 style="font-size:1rem;margin:1.25rem 0 1rem;color:var(--purple)">Part C — Strassen's Algorithm</h3>
+
+  <div class="callout info" style="margin-bottom:1.25rem">
+    <strong>SETUP</strong>
+    <p>Strassen's algorithm reduces recursive multiplications from <strong>8 → 7</strong> using clever algebraic tricks. Matrix additions/subtractions still cost O(n²).</p>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">C·Q1</div><div class="qtxt">Write the recurrence relation for Strassen's algorithm.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">T(n) = 7T(n/2) + Θ(n²)</div>
+        <div class="callout info"><strong>DIFFERENCE FROM PART B</strong><p>Only change: <strong>a = 7</strong> instead of 8. That one fewer multiplication changes everything.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">C·Q2</div><div class="qtxt">Identify the parameters a, b, and f(n) for the Master Theorem.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <ul>
+            <li><span class="hl">a = 7</span></li>
+            <li><span class="hl">b = 2</span></li>
+            <li><span class="hl">f(n) = Θ(n²)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">C·Q3</div><div class="qtxt">Apply the Master Theorem. Compute the critical exponent and determine which case applies.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Critical exponent: <span class="hl3">log<sub>2</sub>(7) ≈ 2.807</span></p>
+          <br>
+          <p>Compare f(n) = n² with n<sup>2.807</sup>:</p>
+          <p>f(n) = n² grows <strong>slower</strong> than n<sup>2.807</sup> → <span class="hl2">Case 1 applies</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">C·Q4</div><div class="qtxt">Determine the final time complexity.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">T(n) = Θ(n^log₂7) ≈ Θ(n^2.807)</div>
+        <div class="callout ok"><strong>✅ KEY INSIGHT</strong><p>One fewer multiplication changed the exponent from 3.0 → 2.807. For massive matrices this is a significant speedup — Strassen is asymptotically faster than standard multiplication.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout note" style="margin-top:2rem">
+    <strong>📋 MASTER THEOREM CHEAT SHEET</strong>
+    <p>T(n) = aT(n/b) + f(n), let c = log<sub>b</sub>(a)</p>
+    <ul>
+      <li><strong>Case 1:</strong> f(n) grows slower than n<sup>c</sup> → T(n) = Θ(n<sup>c</sup>)</li>
+      <li><strong>Case 2:</strong> f(n) = Θ(n<sup>c</sup>) → T(n) = Θ(n<sup>c</sup> log n)</li>
+      <li><strong>Case 3:</strong> f(n) grows faster than n<sup>c</sup> → T(n) = Θ(f(n))</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROBLEM 2 -->
+<div class="page" id="p2">
+  <div class="sec-head">
+    <h2><span>Problem 2</span> — Matrix Chain Multiplication</h2>
+    <p><span class="badge dp">DYNAMIC PROGRAMMING</span> Bottom-up · m and s tables · Parenthesization</p>
+  </div>
+
+  <div class="callout info" style="margin-bottom:1.5rem">
+    <strong>PROBLEM STATEMENT</strong>
+    <p>Given: <strong>A₁(7×2), A₂(2×9), A₃(9×6), A₄(6×5)</strong><br>
+    Find the minimum scalar multiplications to compute A₁×A₂×A₃×A₄ and the optimal parenthesization.<br>
+    Fill tables: <strong>m[i][j]</strong> (min cost) and <strong>s[i][j]</strong> (split point k).</p>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 1</div><div class="qtxt">Define the dimensions array p[].</div></div>
+    <div class="qsub">Matrix Aᵢ has dimensions p[i−1] × p[i]. What is p[] for these four matrices?</div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">p = [7, 2, 9, 6, 5]</div>
+        <div class="callout info"><strong>WHY?</strong><p>p[0]=7, p[1]=2 → A₁ is 7×2 &nbsp;|&nbsp; p[1]=2, p[2]=9 → A₂ is 2×9 &nbsp;|&nbsp; p[2]=9, p[3]=6 → A₃ is 9×6 &nbsp;|&nbsp; p[3]=6, p[4]=5 → A₄ is 6×5</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 2</div><div class="qtxt">Initialize the m[i][j] and s[i][j] tables.</div></div>
+    <div class="qsub">What values go on the diagonal? Why?</div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card"><p>Set <span class="hl2">m[i][i] = 0</span> for all i. A single matrix costs nothing to "multiply" — there's no operation needed. All other cells start empty.</p></div>
+        <div class="tw"><table>
+          <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
+          <tr><td>i=1</td><td class="tc">0</td><td class="tm">?</td><td class="tm">?</td><td class="tm">?</td></tr>
+          <tr><td>i=2</td><td class="tm">—</td><td class="tc">0</td><td class="tm">?</td><td class="tm">?</td></tr>
+          <tr><td>i=3</td><td class="tm">—</td><td class="tm">—</td><td class="tc">0</td><td class="tm">?</td></tr>
+          <tr><td>i=4</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td><td class="tc">0</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3</div><div class="qtxt">State the recurrence formula for m[i][j]. What does k represent?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="formula">m[i][j] = min over all k where i ≤ k &lt; j of:<br>m[i][k] + m[k+1][j] + p[i−1] × p[k] × p[j]</div>
+        <div class="ans-card">
+          <h4>What k means:</h4>
+          <ul>
+            <li>k is the <strong>split point</strong> — where you divide the chain Aᵢ...Aⱼ into two halves</li>
+            <li><strong>Left side:</strong> Aᵢ...Aₖ → cost is m[i][k]</li>
+            <li><strong>Right side:</strong> Aₖ₊₁...Aⱼ → cost is m[k+1][j]</li>
+            <li><strong>Merge cost:</strong> multiply the two resulting matrices → p[i−1] × p[k] × p[j]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: chain length 2 -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 4a</div><div class="qtxt">Compute chain length = 2: fill m[1][2], m[2][3], m[3][4] and the corresponding s values.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p><span class="hl">m[1][2]</span>: Only split is k=1<br>
+          = m[1][1] + m[2][2] + p[0]×p[1]×p[2] = 0 + 0 + 7×2×9 = <span class="hl2">126</span> → s[1][2] = 1</p>
+          <br>
+          <p><span class="hl">m[2][3]</span>: Only split is k=2<br>
+          = 0 + 0 + p[1]×p[2]×p[3] = 2×9×6 = <span class="hl2">108</span> → s[2][3] = 2</p>
+          <br>
+          <p><span class="hl">m[3][4]</span>: Only split is k=3<br>
+          = 0 + 0 + p[2]×p[3]×p[4] = 9×6×5 = <span class="hl2">270</span> → s[3][4] = 3</p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
+          <tr><td>i=1</td><td class="tm">0</td><td class="tc">126</td><td class="tm">?</td><td class="tm">?</td></tr>
+          <tr><td>i=2</td><td class="tm">—</td><td class="tm">0</td><td class="tc">108</td><td class="tm">?</td></tr>
+          <tr><td>i=3</td><td class="tm">—</td><td class="tm">—</td><td class="tm">0</td><td class="tc">270</td></tr>
+          <tr><td>i=4</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td><td class="tm">0</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5: chain length 3 -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 4b</div><div class="qtxt">Compute chain length = 3: fill m[1][3] and m[2][4]. Show all k values tried.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p><span class="hl">m[1][3]</span> — try k=1 and k=2:</p>
+          <ul>
+            <li>k=1: m[1][1] + m[2][3] + p[0]×p[1]×p[3] = 0 + 108 + 7×2×6 = 108 + 84 = <span class="hl3">192</span></li>
+            <li>k=2: m[1][2] + m[3][3] + p[0]×p[2]×p[3] = 126 + 0 + 7×9×6 = 126 + 378 = 504</li>
+          </ul>
+          <p>Min = <span class="hl2">192</span> at k=1 → <strong>m[1][3] = 192, s[1][3] = 1</strong></p>
+          <hr class="divider">
+          <p><span class="hl">m[2][4]</span> — try k=2 and k=3:</p>
+          <ul>
+            <li>k=2: m[2][2] + m[3][4] + p[1]×p[2]×p[4] = 0 + 270 + 2×9×5 = 270 + 90 = 360</li>
+            <li>k=3: m[2][3] + m[4][4] + p[1]×p[3]×p[4] = 108 + 0 + 2×6×5 = 108 + 60 = <span class="hl3">168</span></li>
+          </ul>
+          <p>Min = <span class="hl2">168</span> at k=3 → <strong>m[2][4] = 168, s[2][4] = 3</strong></p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
+          <tr><td>i=1</td><td class="tm">0</td><td>126</td><td class="tc">192</td><td class="tm">?</td></tr>
+          <tr><td>i=2</td><td class="tm">—</td><td class="tm">0</td><td>108</td><td class="tc">168</td></tr>
+          <tr><td>i=3</td><td class="tm">—</td><td class="tm">—</td><td class="tm">0</td><td>270</td></tr>
+          <tr><td>i=4</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td><td class="tm">0</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 6: chain length 4 -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 4c</div><div class="qtxt">Compute chain length = 4: fill m[1][4]. Show all k values tried.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p><span class="hl">m[1][4]</span> — try k=1, k=2, k=3:</p>
+          <ul>
+            <li>k=1: m[1][1] + m[2][4] + p[0]×p[1]×p[4] = 0 + 168 + 7×2×5 = 168 + 70 = <span class="hl3">238</span></li>
+            <li>k=2: m[1][2] + m[3][4] + p[0]×p[2]×p[4] = 126 + 270 + 7×9×5 = 396 + 315 = 711</li>
+            <li>k=3: m[1][3] + m[4][4] + p[0]×p[3]×p[4] = 192 + 0 + 7×6×5 = 192 + 210 = 402</li>
+          </ul>
+          <p>Min = <span class="hl2">238</span> at k=1 → <strong>m[1][4] = 238, s[1][4] = 1</strong></p>
+        </div>
+        <div class="big">Minimum scalar multiplications = 238</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final tables -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">FINAL</div><div class="qtxt">Write the completed m[i][j] and s[i][j] tables.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal tables</button>
+      <div class="answer">
+        <p style="font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:.4rem">m[i][j] — minimum cost:</p>
+        <div class="tw"><table>
+          <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
+          <tr><td>i=1</td><td class="tm">0</td><td>126</td><td>192</td><td class="tc">238</td></tr>
+          <tr><td>i=2</td><td class="tm">—</td><td class="tm">0</td><td>108</td><td>168</td></tr>
+          <tr><td>i=3</td><td class="tm">—</td><td class="tm">—</td><td class="tm">0</td><td>270</td></tr>
+          <tr><td>i=4</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td><td class="tm">0</td></tr>
+        </table></div>
+        <p style="font-family:var(--mono);font-size:.72rem;color:var(--muted);margin:.75rem 0 .4rem">s[i][j] — optimal split point:</p>
+        <div class="tw"><table>
+          <tr><th>s[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
+          <tr><td>i=1</td><td class="tm">—</td><td class="tc">1</td><td class="tc">1</td><td class="tc">1</td></tr>
+          <tr><td>i=2</td><td class="tm">—</td><td class="tm">—</td><td class="tc">2</td><td class="tc">3</td></tr>
+          <tr><td>i=3</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td><td class="tc">3</td></tr>
+          <tr><td>i=4</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td><td class="tm">—</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parenthesization -->
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 5</div><div class="qtxt">Use the s table to construct the optimal parenthesization step-by-step.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <ol>
+            <li>Full chain A₁–A₄: look at <span class="hl">s[1][4] = 1</span> → split after A₁ → <strong>(A₁) × (A₂A₃A₄)</strong></li>
+            <li>Right subchain A₂–A₄: look at <span class="hl">s[2][4] = 3</span> → split after A₃ → <strong>(A₂A₃) × A₄</strong></li>
+            <li>Left subchain A₂–A₃: look at <span class="hl">s[2][3] = 2</span> → split after A₂ → <strong>(A₂) × (A₃)</strong></li>
+          </ol>
+        </div>
+        <div class="callout ok"><strong>✅ OPTIMAL PARENTHESIZATION</strong><p><strong>( A₁ × ((A₂ × A₃) × A₄) )</strong> — total cost: 238 scalar multiplications</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout note" style="margin-top:2rem">
+    <strong>📝 PSEUDOCODE</strong>
+    <div class="code" style="margin:.4rem 0 0">
+<span class="kw">for</span> len = 2 <span class="kw">to</span> n:
+  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-len+1:
+    j = i + len - 1
+    m[i][j] = ∞
+    <span class="kw">for</span> k = i <span class="kw">to</span> j-1:
+      q = m[i][k] + m[k+1][j] + p[i-1]·p[k]·p[j]
+      <span class="kw">if</span> q &lt; m[i][j]:
+        m[i][j] = q
+        s[i][j] = k</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROBLEM 3 -->
+<div class="page" id="p3">
+  <div class="sec-head">
+    <h2><span>Problem 3</span> — 0/1 Knapsack</h2>
+    <p><span class="badge dp">DYNAMIC PROGRAMMING</span> Include/exclude decision · Build table row by row · Traceback</p>
+  </div>
+
+  <div class="callout info" style="margin-bottom:1.5rem">
+    <strong>PROBLEM STATEMENT</strong>
+    <p>Knapsack capacity: <strong>W = 8 lbs</strong>, n = 4 items. Maximize profit. Each item taken whole or not at all.</p>
+    <div class="tw" style="margin-top:.75rem"><table>
+      <tr><th>Item</th><th>Profit</th><th>Weight</th></tr>
+      <tr><td>1</td><td>1</td><td>2</td></tr>
+      <tr><td>2</td><td>2</td><td>3</td></tr>
+      <tr><td>3</td><td>5</td><td>4</td></tr>
+      <tr><td>4</td><td>6</td><td>5</td></tr>
+    </table></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 1</div><div class="qtxt">Define the profit and weight arrays. How large is the DP table?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Profit = [1, 2, 5, 6] &nbsp;&nbsp; Weight = [2, 3, 4, 5]</p>
+          <br>
+          <p>Table P[i][w]: i = items considered (0 to n=4), w = capacity (0 to W=8)</p>
+          <p>Dimensions: <span class="hl2">(n+1) × (W+1) = 5 × 9</span></p>
+          <p>Initialize all to 0.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 2</div><div class="qtxt">State the recurrence formula. When do you include vs. exclude an item?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="callout warn">
+          <strong>RECURRENCE</strong>
+          <p>If Weight[i] &gt; w (item too heavy): &nbsp; <strong>P[i][w] = P[i−1][w]</strong></p>
+          <p>Otherwise: &nbsp; <strong>P[i][w] = max( P[i−1][w] , Profit[i] + P[i−1][w − Weight[i]] )</strong></p>
+        </div>
+        <div class="ans-card">
+          <p><span class="hl3">Exclude:</span> take best profit from row above (same capacity) = P[i−1][w]</p>
+          <p><span class="hl2">Include:</span> add this item's profit to the best profit achievable with remaining capacity = Profit[i] + P[i−1][w − Weight[i]]</p>
+          <p>Take the <strong>max</strong> of the two options.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3a</div><div class="qtxt">Fill Row 1 — Item 1 (Profit=1, Weight=2). Show your calculations.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>w=0,1: Weight[1]=2 &gt; w → can't fit → copy 0 from row above</p>
+          <p>w=2: max(P[0][2], 1 + P[0][0]) = max(0, 1+0) = <span class="hl2">1</span></p>
+          <p>w=3: max(P[0][3], 1 + P[0][1]) = max(0, 1+0) = <span class="hl2">1</span></p>
+          <p>w=4–8: same logic, always max(0, 1) = <span class="hl2">1</span></p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>i\w</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+          <tr><td><strong>0</strong></td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td></tr>
+          <tr><td><strong>1</strong></td><td class="tm">0</td><td class="tm">0</td><td class="tc">1</td><td class="tc">1</td><td class="tc">1</td><td class="tc">1</td><td class="tc">1</td><td class="tc">1</td><td class="tc">1</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3b</div><div class="qtxt">Fill Row 2 — Item 2 (Profit=2, Weight=3). Show your calculations.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>w=0,1,2: Weight[2]=3 &gt; w → copy row above: 0, 0, 1</p>
+          <p>w=3: max(P[1][3], 2+P[1][0]) = max(1, 2+0) = <span class="hl2">2</span></p>
+          <p>w=4: max(P[1][4], 2+P[1][1]) = max(1, 2+0) = <span class="hl2">2</span></p>
+          <p>w=5: max(P[1][5], 2+P[1][2]) = max(1, 2+1) = <span class="hl2">3</span></p>
+          <p>w=6: max(P[1][6], 2+P[1][3]) = max(1, 2+1) = <span class="hl2">3</span></p>
+          <p>w=7: max(P[1][7], 2+P[1][4]) = max(1, 2+1) = <span class="hl2">3</span></p>
+          <p>w=8: max(P[1][8], 2+P[1][5]) = max(1, 2+1) = <span class="hl2">3</span></p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>i\w</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+          <tr><td><strong>1</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>2</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td class="tc">2</td><td class="tc">2</td><td class="tc">3</td><td class="tc">3</td><td class="tc">3</td><td class="tc">3</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3c</div><div class="qtxt">Fill Row 3 — Item 3 (Profit=5, Weight=4). Show your calculations.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>w=0–3: Weight[3]=4 &gt; w → copy row above: 0,0,1,2</p>
+          <p>w=4: max(P[2][4], 5+P[2][0]) = max(2, 5+0) = <span class="hl2">5</span></p>
+          <p>w=5: max(P[2][5], 5+P[2][1]) = max(3, 5+0) = <span class="hl2">5</span></p>
+          <p>w=6: max(P[2][6], 5+P[2][2]) = max(3, 5+1) = <span class="hl2">6</span></p>
+          <p>w=7: max(P[2][7], 5+P[2][3]) = max(3, 5+2) = <span class="hl2">7</span></p>
+          <p>w=8: max(P[2][8], 5+P[2][4]) = max(3, 5+2) = <span class="hl2">7</span></p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>i\w</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+          <tr><td><strong>2</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>2</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+          <tr><td><strong>3</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>2</td><td class="tc">5</td><td class="tc">5</td><td class="tc">6</td><td class="tc">7</td><td class="tc">7</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3d</div><div class="qtxt">Fill Row 4 — Item 4 (Profit=6, Weight=5). Show your calculations. What is the maximum profit?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>w=0–4: Weight[4]=5 &gt; w → copy row above: 0,0,1,2,5</p>
+          <p>w=5: max(P[3][5], 6+P[3][0]) = max(5, 6+0) = <span class="hl2">6</span></p>
+          <p>w=6: max(P[3][6], 6+P[3][1]) = max(6, 6+0) = <span class="hl2">6</span></p>
+          <p>w=7: max(P[3][7], 6+P[3][2]) = max(7, 6+1) = <span class="hl2">7</span></p>
+          <p>w=8: max(P[3][8], 6+P[3][3]) = max(7, 6+2) = <span class="hl2">8</span> ← final answer!</p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>i\w</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+          <tr><td><strong>0</strong></td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td><td class="tm">0</td></tr>
+          <tr><td><strong>1</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td><strong>2</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>2</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+          <tr><td><strong>3</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>2</td><td>5</td><td>5</td><td>6</td><td>7</td><td>7</td></tr>
+          <tr><td><strong>4</strong></td><td class="tm">0</td><td class="tm">0</td><td>1</td><td>2</td><td>5</td><td>6</td><td>6</td><td>7</td><td class="tc">8</td></tr>
+        </table></div>
+        <div class="big">Maximum Profit = P[4][8] = 8</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 4</div><div class="qtxt">Perform the traceback. Starting from P[4][8], determine which items were included.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <ol>
+            <li>P[4][8]=8 vs P[3][8]=7 → <span class="hl2">different</span> → <strong>Item 4 INCLUDED</strong>. Subtract weight 5 → go to P[3][3]</li>
+            <li>P[3][3]=2 vs P[2][3]=2 → <span class="hl4">same</span> → <strong>Item 3 NOT included</strong>. Stay at w=3 → go to P[2][3]</li>
+            <li>P[2][3]=2 vs P[1][3]=1 → <span class="hl2">different</span> → <strong>Item 2 INCLUDED</strong>. Subtract weight 3 → go to P[1][0]</li>
+            <li>P[1][0]=0 → base case reached. Done.</li>
+          </ol>
+        </div>
+        <div class="callout ok">
+          <strong>✅ FINAL ANSWER</strong>
+          <p><strong>Item 2</strong> (Profit=2, Weight=3) + <strong>Item 4</strong> (Profit=6, Weight=5)<br>
+          Total Weight = 8 lbs ✓ &nbsp; Total Profit = <strong>8</strong> ✓</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout note" style="margin-top:2rem">
+    <strong>📝 PSEUDOCODE</strong>
+    <div class="code" style="margin:.4rem 0 0">
+<span class="kw">for</span> i = 1 <span class="kw">to</span> n:
+  <span class="kw">for</span> w = 0 <span class="kw">to</span> W:
+    <span class="kw">if</span> Weight[i] &gt; w:
+      P[i][w] = P[i-1][w]
+    <span class="kw">else</span>:
+      P[i][w] = max(P[i-1][w], Profit[i] + P[i-1][w - Weight[i]])</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROBLEM 4 -->
+<div class="page" id="p4">
+  <div class="sec-head">
+    <h2><span>Problem 4</span> — Huffman Encoding</h2>
+    <p><span class="badge gr">GREEDY</span> Frequency count · Min-heap tree · Variable-length codes · Compression</p>
+  </div>
+
+  <div class="callout info" style="margin-bottom:1.5rem">
+    <strong>PROBLEM STATEMENT</strong>
+    <p>Apply Huffman compression to the string <strong>"balloon"</strong> (case-insensitive).<br>
+    Steps: (a) count frequencies, (b) build tree, (c) assign codes, (d) encode string, (e) compare with fixed-length encoding.</p>
+  </div>
+
+  <!-- a -->
+  <div class="qblock">
+    <div class="sublabel">Part a</div>
+    <div class="qhead"><div class="qnum">a</div><div class="qtxt">Count the frequency of each character in "balloon" (case-insensitive).</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="tw"><table>
+          <tr><th>Character</th><th>Frequency</th></tr>
+          <tr><td>b</td><td>1</td></tr>
+          <tr><td>a</td><td>1</td></tr>
+          <tr><td>l</td><td class="tc">2</td></tr>
+          <tr><td>o</td><td class="tc">2</td></tr>
+          <tr><td>n</td><td>1</td></tr>
+        </table></div>
+        <div class="callout info"><strong>TOTALS</strong><p>7 total characters, 5 unique characters</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- b -->
+  <div class="qblock">
+    <div class="sublabel">Part b</div>
+    <div class="qhead"><div class="qnum">b</div><div class="qtxt">Build the Huffman tree. Show each merge step using the min-heap (priority queue).</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <h4>Start: insert all as leaf nodes</h4>
+          <p>Queue: b(1), a(1), n(1), l(2), o(2)</p>
+          <hr class="divider">
+          <p><span class="hl">Merge 1:</span> Take two smallest → b(1) + n(1) → internal node <span class="hl2">bn(2)</span></p>
+          <p>Queue: a(1), bn(2), l(2), o(2)</p>
+          <hr class="divider">
+          <p><span class="hl">Merge 2:</span> Take two smallest → a(1) + bn(2) → internal node <span class="hl2">abn(3)</span></p>
+          <p>Queue: l(2), o(2), abn(3)</p>
+          <hr class="divider">
+          <p><span class="hl">Merge 3:</span> Take two smallest → l(2) + o(2) → internal node <span class="hl2">lo(4)</span></p>
+          <p>Queue: abn(3), lo(4)</p>
+          <hr class="divider">
+          <p><span class="hl">Merge 4:</span> abn(3) + lo(4) → <span class="hl2">root(7)</span></p>
+        </div>
+        <div class="callout ok">
+          <strong>FINAL TREE STRUCTURE</strong>
+          <div class="code" style="margin:.4rem 0 0;color:#8be">
+        [7]
+       /    \
+    [4]     [3]
+   /   \   /   \
+ l:2  o:2 a:1  [2]
+                / \
+              b:1  n:1</div>
+        </div>
+        <div class="callout info"><strong>WHY THIS SHAPE?</strong><p>l and o have the highest frequency (2), so they end up <strong>closest to the root</strong> → shortest codes. b and n are deepest → longest codes. This minimizes total bits used.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- c -->
+  <div class="qblock">
+    <div class="sublabel">Part c</div>
+    <div class="qhead"><div class="qnum">c</div><div class="qtxt">Assign binary codes to each character. (left = 0, right = 1)</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Traverse from root: left = 0, right = 1</p>
+          <ul>
+            <li>root → left → left → <span class="hl">l = <span class="hl2">00</span></span></li>
+            <li>root → left → right → <span class="hl">o = <span class="hl2">01</span></span></li>
+            <li>root → right → left → <span class="hl">a = <span class="hl2">10</span></span></li>
+            <li>root → right → right → left → <span class="hl">b = <span class="hl2">110</span></span></li>
+            <li>root → right → right → right → <span class="hl">n = <span class="hl2">111</span></span></li>
+          </ul>
+        </div>
+        <div class="tw"><table>
+          <tr><th>Char</th><th>Freq</th><th>Code</th><th>Bits</th></tr>
+          <tr><td>l</td><td>2</td><td class="tc">00</td><td>2</td></tr>
+          <tr><td>o</td><td>2</td><td class="tc">01</td><td>2</td></tr>
+          <tr><td>a</td><td>1</td><td class="tc">10</td><td>2</td></tr>
+          <tr><td>b</td><td>1</td><td class="ty">110</td><td>3</td></tr>
+          <tr><td>n</td><td>1</td><td class="ty">111</td><td>3</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- d -->
+  <div class="qblock">
+    <div class="sublabel">Part d</div>
+    <div class="qhead"><div class="qnum">d</div><div class="qtxt">Encode the string "balloon" using your Huffman codes. What is the encoded bitstring and total bit count?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>b → <span class="hl2">110</span></p>
+          <p>a → <span class="hl2">10</span></p>
+          <p>l → <span class="hl2">00</span></p>
+          <p>l → <span class="hl2">00</span></p>
+          <p>o → <span class="hl2">01</span></p>
+          <p>o → <span class="hl2">01</span></p>
+          <p>n → <span class="hl2">111</span></p>
+        </div>
+        <div class="formula">110 + 10 + 00 + 00 + 01 + 01 + 111 = 1101000000101111</div>
+        <div class="big">Total Bits = 16</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- e -->
+  <div class="qblock">
+    <div class="sublabel">Part e</div>
+    <div class="qhead"><div class="qnum">e</div><div class="qtxt">Compare with fixed-length encoding. How many bits does fixed-length need? How much does Huffman save?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p><strong>Fixed-length formula:</strong> ⌈log₂(N)⌉ bits per character, where N = number of unique characters</p>
+          <br>
+          <p>5 unique characters → ⌈log₂(5)⌉ = ⌈2.32⌉ = <span class="hl3">3 bits per character</span></p>
+          <br>
+          <p>Total: 7 characters × 3 bits = <span class="hl4">21 bits</span></p>
+        </div>
+        <div class="tw"><table>
+          <tr><th>Method</th><th>Total Bits</th></tr>
+          <tr><td>Fixed-length</td><td class="ty">21 bits</td></tr>
+          <tr><td>Huffman</td><td class="tc">16 bits</td></tr>
+          <tr><td>Savings</td><td style="color:var(--green);font-weight:700">5 bits (≈24% smaller)</td></tr>
+        </table></div>
+        <div class="callout ok"><strong>✅ CONCLUSION</strong><p>Huffman encoding reduces the size from 21 → 16 bits because frequent characters (l, o) get 2-bit codes instead of 3-bit codes.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout note" style="margin-top:2rem">
+    <strong>📝 PSEUDOCODE</strong>
+    <div class="code" style="margin:.4rem 0 0">
+Huffman(C):
+  n = |C|, Q = priority_queue(C)  <span class="cm">← min-heap by freq</span>
+  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-1:
+    z = new_node()
+    z.left  = x = Extract-Min(Q)
+    z.right = y = Extract-Min(Q)
+    z.freq  = x.freq + y.freq
+    Insert(Q, z)
+  <span class="kw">return</span> Extract-Min(Q)  <span class="cm">← root of tree</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROBLEM 5 -->
+<div class="page" id="p5">
+  <div class="sec-head">
+    <h2><span>Problem 5</span> — Fractional Knapsack</h2>
+    <p><span class="badge gr">GREEDY</span> Profit/weight ratio · Sort descending · Take fractions when needed</p>
+  </div>
+
+  <div class="callout info" style="margin-bottom:1.5rem">
+    <strong>PROBLEM STATEMENT</strong>
+    <p>Capacity: <strong>15 lbs</strong>, n=7 items. You may take <em>fractions</em> of items. Maximize total profit using a greedy strategy.</p>
+    <div class="tw" style="margin-top:.75rem"><table>
+      <tr><th>Item</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+      <tr><td>Profit</td><td>12</td><td>8</td><td>20</td><td>10</td><td>7</td><td>25</td><td>4</td></tr>
+      <tr><td>Weight</td><td>3</td><td>4</td><td>8</td><td>7</td><td>1</td><td>5</td><td>2</td></tr>
+    </table></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 1</div><div class="qtxt">Calculate the profit-to-weight ratio for each item.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="tw"><table>
+          <tr><th>Item</th><th>Profit</th><th>Weight</th><th>Ratio (P/W)</th></tr>
+          <tr><td>1</td><td>12</td><td>3</td><td>4.00</td></tr>
+          <tr><td>2</td><td>8</td><td>4</td><td>2.00</td></tr>
+          <tr><td>3</td><td>20</td><td>8</td><td>2.50</td></tr>
+          <tr><td>4</td><td>10</td><td>7</td><td>1.43</td></tr>
+          <tr><td>5</td><td>7</td><td>1</td><td class="tc">7.00</td></tr>
+          <tr><td>6</td><td>25</td><td>5</td><td class="tc">5.00</td></tr>
+          <tr><td>7</td><td>4</td><td>2</td><td>2.00</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 2</div><div class="qtxt">Sort items by profit-to-weight ratio in descending order.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="tw"><table>
+          <tr><th>Rank</th><th>Item</th><th>Profit</th><th>Weight</th><th>Ratio</th></tr>
+          <tr><td>1st</td><td class="tc">5</td><td>7</td><td>1</td><td class="tc">7.00</td></tr>
+          <tr><td>2nd</td><td class="tc">6</td><td>25</td><td>5</td><td class="tc">5.00</td></tr>
+          <tr><td>3rd</td><td class="tc">1</td><td>12</td><td>3</td><td>4.00</td></tr>
+          <tr><td>4th</td><td class="tc">3</td><td>20</td><td>8</td><td>2.50</td></tr>
+          <tr><td>5th</td><td class="tm">2</td><td>8</td><td>4</td><td>2.00</td></tr>
+          <tr><td>6th</td><td class="tm">7</td><td>4</td><td>2</td><td>2.00</td></tr>
+          <tr><td>7th</td><td class="tm">4</td><td>10</td><td>7</td><td>1.43</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3a</div><div class="qtxt">Take Item 5 (Profit=7, Weight=1, Ratio=7.00). Does it fit? What are the running totals?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Remaining capacity = 15. Item 5 weighs 1 lb. 0 + 1 ≤ 15 → <span class="hl2">fits entirely</span>. Take 100%.</p>
+          <p>Total Weight = <span class="hl3">1 lb</span> &nbsp; Total Profit = <span class="hl2">7</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3b</div><div class="qtxt">Take Item 6 (Profit=25, Weight=5, Ratio=5.00). Does it fit? What are the running totals?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Remaining capacity = 14. Item 6 weighs 5 lbs. 1 + 5 ≤ 15 → <span class="hl2">fits entirely</span>. Take 100%.</p>
+          <p>Total Weight = <span class="hl3">6 lbs</span> &nbsp; Total Profit = 7 + 25 = <span class="hl2">32</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3c</div><div class="qtxt">Take Item 1 (Profit=12, Weight=3, Ratio=4.00). Does it fit? What are the running totals?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Remaining capacity = 9. Item 1 weighs 3 lbs. 6 + 3 ≤ 15 → <span class="hl2">fits entirely</span>. Take 100%.</p>
+          <p>Total Weight = <span class="hl3">9 lbs</span> &nbsp; Total Profit = 32 + 12 = <span class="hl2">44</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 3d</div><div class="qtxt">Take Item 3 (Profit=20, Weight=8, Ratio=2.50). Does it fit entirely? If not, what fraction do you take and how much profit does that add?</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="ans-card">
+          <p>Remaining capacity = 6 lbs. Item 3 weighs 8 lbs. <span class="hl4">Does NOT fit entirely.</span></p>
+          <br>
+          <p>Fraction = remaining / weight = <span class="hl3">6/8 = 0.75</span></p>
+          <p>Profit from fraction = 20 × 0.75 = <span class="hl2">15</span></p>
+          <br>
+          <p>Total Weight = 9 + 6 = <span class="hl3">15 lbs</span> (knapsack full!)</p>
+          <p>Total Profit = 44 + 15 = <span class="hl2">59</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="qblock">
+    <div class="qhead"><div class="qnum">STEP 4</div><div class="qtxt">State the final answer. List all items taken, their amounts, and total profit.</div></div>
+    <div class="reveal-wrap">
+      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <div class="answer">
+        <div class="tw"><table>
+          <tr><th>Item</th><th>Fraction Taken</th><th>Weight</th><th>Profit</th></tr>
+          <tr><td>5</td><td>100%</td><td>1 lb</td><td>7</td></tr>
+          <tr><td>6</td><td>100%</td><td>5 lbs</td><td>25</td></tr>
+          <tr><td>1</td><td>100%</td><td>3 lbs</td><td>12</td></tr>
+          <tr><td>3</td><td class="tc">75%</td><td>6 lbs</td><td class="tc">15</td></tr>
+        </table></div>
+        <div class="big">Maximum Profit = 59</div>
+        <div class="callout ok"><strong>✅ FINAL ANSWER</strong><p>Total Weight = 15 lbs ✓ &nbsp; Total Profit = <strong>59 units</strong></p></div>
+        <div class="callout warn"><strong>⚠️ KEY DIFFERENCE FROM 0/1 KNAPSACK</strong><p>Greedy works here because you can take fractions — you never "waste" capacity. In 0/1 Knapsack, greedy can fail because you're forced into suboptimal whole-item choices. That's why 0/1 needs DP.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout note" style="margin-top:2rem">
+    <strong>📝 PSEUDOCODE</strong>
+    <div class="code" style="margin:.4rem 0 0">
+Sort items by p[i]/w[i] descending
+remaining = W
+total_profit = 0
+<span class="kw">for</span> each item i (sorted order):
+  <span class="kw">if</span> w[i] &lt;= remaining:
+    total_profit += p[i]       <span class="cm">← take whole item</span>
+    remaining -= w[i]
+  <span class="kw">else</span>:
+    fraction = remaining / w[i]
+    total_profit += p[i] * fraction
+    <span class="kw">break</span>                        <span class="cm">← knapsack full</span></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+function goTo(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.navbtn').forEach(b => b.classList.remove('on'));
+  if (btn) { btn.classList.add('on'); }
+  else {
+    const map = {home:0,p1:1,p2:2,p3:3,p4:4,p5:5};
+    document.querySelectorAll('.navbtn')[map[id]].classList.add('on');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function rev(btn) {
+  const ans = btn.nextElementSibling;
+  const open = ans.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.innerHTML = open ? '🙈 Hide answer' : '👁 Reveal answer';
+}
+</script>
+</body>
+</html>
