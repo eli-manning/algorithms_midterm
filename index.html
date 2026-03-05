@@ -228,11 +228,12 @@ td { padding: .38rem .6rem; border: 1px solid var(--border); text-align: center;
   <div class="callout info" style="margin-bottom:1.25rem">
     <strong>The Algorithm</strong>
     <div class="code" style="margin:.4rem 0 0">
-<span class="kw">for</span> i = 1 <span class="kw">to</span> n
-  <span class="kw">for</span> j = 1 <span class="kw">to</span> n
-    C[i][j] = 0
-    <span class="kw">for</span> k = 1 <span class="kw">to</span> n
-      C[i][j] = C[i][j] + A[i][k] * B[k][j]  <span class="cm">← count this line</span></div>
+<span class="kw">for</span> i = 1 <span class="kw">to</span> n                                  <span class="cm">← outer loop: select each row i of result matrix C (runs n times)</span>
+  <span class="kw">for</span> j = 1 <span class="kw">to</span> n                                <span class="cm">← middle loop: select each column j of result C (runs n times per i → n² pairs)</span>
+    C[i][j] = 0                                  <span class="cm">← zero the accumulator before computing the dot product for this entry</span>
+    <span class="kw">for</span> k = 1 <span class="kw">to</span> n                              <span class="cm">← inner loop: step through the shared dimension (runs n times per (i,j) → n³ total)</span>
+      C[i][j] = C[i][j] + A[i][k] * B[k][j]     <span class="cm">← multiply A's row-i element by B's col-j element and add to accumulator ← count this</span></div>
+    <p style="margin-top:.65rem;font-size:.83rem"><strong>Time: &Theta;(n&sup3;)</strong> — three nested loops of size n give n&sup3; multiply-add operations. <strong>Space: &Theta;(n&sup2;)</strong> — result matrix C stores n&sup2; values; input matrices are read-only.</p>
   </div>
 
   <div class="qblock">
@@ -636,15 +637,16 @@ td { padding: .38rem .6rem; border: 1px solid var(--border); text-align: center;
   <div class="callout note" style="margin-top:2rem">
     <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
-<span class="kw">for</span> len = 2 <span class="kw">to</span> n:
-  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-len+1:
-    j = i + len - 1
-    m[i][j] = &infin;
-    <span class="kw">for</span> k = i <span class="kw">to</span> j-1:
-      q = m[i][k] + m[k+1][j] + p[i-1]&middot;p[k]&middot;p[j]
-      <span class="kw">if</span> q &lt; m[i][j]:
-        m[i][j] = q
-        s[i][j] = k</div>
+<span class="kw">for</span> len = 2 <span class="kw">to</span> n:                                    <span class="cm">← iterate over chain lengths 2..n (shortest sub-chains first)</span>
+  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-len+1:                              <span class="cm">← for each valid starting index i of a chain of this length</span>
+    j = i + len - 1                                   <span class="cm">← compute the ending index j of the sub-chain [i..j]</span>
+    m[i][j] = &infin;                                     <span class="cm">← init cost to infinity; we will minimize over all split points k</span>
+    <span class="kw">for</span> k = i <span class="kw">to</span> j-1:                               <span class="cm">← try every split point k: left side is [i..k], right side is [k+1..j]</span>
+      q = m[i][k] + m[k+1][j] + p[i-1]&middot;p[k]&middot;p[j]   <span class="cm">← cost = left sub-chain + right sub-chain + cost to merge the two resulting matrices</span>
+      <span class="kw">if</span> q &lt; m[i][j]:                               <span class="cm">← if this split is cheaper than the current best...</span>
+        m[i][j] = q                                   <span class="cm">← ...update the minimum cost for chain [i..j]</span>
+        s[i][j] = k                                   <span class="cm">← ...record the optimal split point for traceback</span></div>
+    <p style="margin-top:.65rem;font-size:.83rem"><strong>Time: &Theta;(n&sup3;)</strong> — three nested loops (chain length, start index, split point) each up to n → O(n&sup3;) total. <strong>Space: &Theta;(n&sup2;)</strong> — two n&times;n tables, m[i][j] for costs and s[i][j] for split points.</p>
   </div>
 </div>
 
@@ -824,12 +826,14 @@ td { padding: .38rem .6rem; border: 1px solid var(--border); text-align: center;
   <div class="callout note" style="margin-top:2rem">
     <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
-<span class="kw">for</span> i = 1 <span class="kw">to</span> n:
-  <span class="kw">for</span> w = 0 <span class="kw">to</span> W:
-    <span class="kw">if</span> Weight[i] &gt; w:
-      P[i][w] = P[i-1][w]
-    <span class="kw">else</span>:
-      P[i][w] = max(P[i-1][w], Profit[i] + P[i-1][w - Weight[i]])</div>
+<span class="kw">for</span> i = 1 <span class="kw">to</span> n:                                            <span class="cm">← consider each item i in turn (row by row)</span>
+  <span class="kw">for</span> w = 0 <span class="kw">to</span> W:                                          <span class="cm">← fill every capacity column 0..W for this row</span>
+    <span class="kw">if</span> Weight[i] &gt; w:                                      <span class="cm">← item i is too heavy to fit in a knapsack of capacity w</span>
+      P[i][w] = P[i-1][w]                                  <span class="cm">← exclude item i: best profit is same as without it</span>
+    <span class="kw">else</span>:                                                  <span class="cm">← item i could fit; decide whether to include it</span>
+      P[i][w] = max(P[i-1][w],                             <span class="cm">← option 1 — exclude: carry forward best profit without item i</span>
+                    Profit[i] + P[i-1][w - Weight[i]])     <span class="cm">← option 2 — include: gain Profit[i], use remaining capacity w-Weight[i]</span></div>
+    <p style="margin-top:.65rem;font-size:.83rem"><strong>Time: &Theta;(nW)</strong> — two nested loops: n items &times; W+1 capacities, each cell filled in O(1). <strong>Space: &Theta;(nW)</strong> — the full (n+1)&times;(W+1) table P; reducible to &Theta;(W) if only the final value is needed (not the traceback).</p>
   </div>
 </div>
 
@@ -986,14 +990,16 @@ td { padding: .38rem .6rem; border: 1px solid var(--border); text-align: center;
     <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
 Huffman(C):
-  n = |C|, Q = priority_queue(C)  <span class="cm">← min-heap by freq</span>
-  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-1:
-    z = new_node()
-    z.left  = x = Extract-Min(Q)
-    z.right = y = Extract-Min(Q)
-    z.freq  = x.freq + y.freq
-    Insert(Q, z)
-  <span class="kw">return</span> Extract-Min(Q)  <span class="cm">← root of tree</span></div>
+  n = |C|                              <span class="cm">← number of unique characters (leaf nodes to create)</span>
+  Q = priority_queue(C)                <span class="cm">← insert all characters as leaf nodes; min-heap ordered by frequency</span>
+  <span class="kw">for</span> i = 1 <span class="kw">to</span> n-1:                  <span class="cm">← perform n-1 merges to reduce n nodes down to 1 root</span>
+    z = new_node()                     <span class="cm">← allocate a new internal (non-leaf) node</span>
+    z.left  = x = Extract-Min(Q)      <span class="cm">← pull the lowest-frequency node; it becomes the left child</span>
+    z.right = y = Extract-Min(Q)      <span class="cm">← pull the next lowest-frequency node; it becomes the right child</span>
+    z.freq  = x.freq + y.freq         <span class="cm">← internal node's frequency = sum of its two children's frequencies</span>
+    Insert(Q, z)                      <span class="cm">← push the merged node back into the heap for future merges</span>
+  <span class="kw">return</span> Extract-Min(Q)              <span class="cm">← only one node remains — it is the root of the Huffman tree</span></div>
+    <p style="margin-top:.65rem;font-size:.83rem"><strong>Time: &Theta;(n log n)</strong> — n&minus;1 iterations, each with two Extract-Min and one Insert on a heap of size &le;n → O(log n) each. <strong>Space: &Theta;(n)</strong> — the tree has 2n&minus;1 nodes total (n leaves + n&minus;1 internal nodes).</p>
   </div>
 </div>
 
@@ -1138,17 +1144,18 @@ Huffman(C):
   <div class="callout note" style="margin-top:2rem">
     <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
-Sort items by p[i]/w[i] descending
-remaining = W
-total_profit = 0
-<span class="kw">for</span> each item i (sorted order):
-  <span class="kw">if</span> w[i] &lt;= remaining:
-    total_profit += p[i]       <span class="cm">← take whole item</span>
-    remaining -= w[i]
-  <span class="kw">else</span>:
-    fraction = remaining / w[i]
-    total_profit += p[i] * fraction
-    <span class="kw">break</span>                        <span class="cm">← knapsack full</span></div>
+Sort items by p[i]/w[i] descending         <span class="cm">← greedy order: best value-per-pound items come first (O(n log n))</span>
+remaining = W                               <span class="cm">← track how much capacity is left in the knapsack</span>
+total_profit = 0                            <span class="cm">← accumulate the total profit as we fill the knapsack</span>
+<span class="kw">for</span> each item i (sorted order):            <span class="cm">← greedily consider each item from highest to lowest ratio</span>
+  <span class="kw">if</span> w[i] &lt;= remaining:                  <span class="cm">← item fits entirely in the remaining capacity</span>
+    total_profit += p[i]                   <span class="cm">← take the whole item; gain its full profit</span>
+    remaining -= w[i]                      <span class="cm">← reduce remaining capacity by the item's full weight</span>
+  <span class="kw">else</span>:                                   <span class="cm">← item does not fit whole; take the largest fraction that fits</span>
+    fraction = remaining / w[i]            <span class="cm">← fraction = what portion of the item fills the leftover space</span>
+    total_profit += p[i] * fraction        <span class="cm">← gain proportional profit for that fraction of the item</span>
+    <span class="kw">break</span>                                <span class="cm">← knapsack is now exactly full; stop</span></div>
+    <p style="margin-top:.65rem;font-size:.83rem"><strong>Time: &Theta;(n log n)</strong> — dominated by the sort; the greedy selection loop is O(n). <strong>Space: &Theta;(n)</strong> — stores the ratio and sorted order for all n items.</p>
   </div>
 </div>
 
