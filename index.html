@@ -3,136 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Algorithms Midterm — Dr. Kim</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<title>Algorithms Midterm Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #080810;
-  --s1: #0f0f1a;
-  --s2: #161625;
-  --border: #252538;
-  --border2: #32324a;
-  --blue: #6b9fff;
-  --green: #4dffa8;
-  --yellow: #ffd166;
-  --pink: #ff6b9d;
-  --purple: #b57bee;
-  --text: #e2e2f0;
-  --muted: #6666a0;
+  --bg: #0b0b13;
+  --s1: #111120;
+  --s2: #181828;
+  --border: #20203a;
+  --border2: #2e2e48;
+  --blue: #5a8df0;
+  --green: #38c47c;
+  --yellow: #d4a03e;
+  --pink: #c45880;
+  --purple: #8a66d0;
+  --text: #d0d0e8;
+  --muted: #55557a;
+  --dim: #8888a8;
   --mono: 'IBM Plex Mono', monospace;
   --sans: 'DM Sans', sans-serif;
+  --r: 7px;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;font-size:15px}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,8,16,0.96);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem;backdrop-filter:blur(10px)}
-.logo{font-family:var(--mono);font-size:.85rem;color:var(--blue);font-weight:600;white-space:nowrap;flex-shrink:0}
-.navlinks{display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none}
-.navlinks::-webkit-scrollbar{display:none}
-.navbtn{font-family:var(--mono);font-size:.65rem;padding:.3rem .7rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
-.navbtn:hover{color:var(--blue);border-color:var(--blue)}
-.navbtn.on{background:var(--blue);color:#000;border-color:var(--blue);font-weight:600}
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 48px; display: flex; align-items: center; padding: 0 1.5rem; gap: 1.25rem; background: rgba(11,11,19,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
+.logo { font-family: var(--mono); font-size: .78rem; font-weight: 600; color: var(--blue); letter-spacing: .08em; flex-shrink: 0; }
+.navlinks { display: flex; gap: .2rem; overflow-x: auto; scrollbar-width: none; }
+.navlinks::-webkit-scrollbar { display: none; }
+.navbtn { font-family: var(--mono); font-size: .6rem; padding: .28rem .6rem; border-radius: 5px; border: 1px solid transparent; background: transparent; color: var(--muted); cursor: pointer; transition: color .15s, border-color .15s; white-space: nowrap; letter-spacing: .03em; }
+.navbtn:hover { color: var(--dim); border-color: var(--border2); }
+.navbtn.on { color: var(--blue); border-color: var(--border2); background: var(--s2); }
 
 /* LAYOUT */
-.wrap{padding-top:52px;max-width:860px;margin:0 auto;padding-left:1.25rem;padding-right:1.25rem}
-.page{display:none;padding:2.5rem 0 6rem}
-.page.on{display:block}
+.wrap { padding-top: 48px; max-width: 820px; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+.page { display: none; padding: 2.5rem 0 6rem; }
+.page.on { display: block; }
 
 /* HOME */
-.home-hero{padding:3.5rem 0 2rem;text-align:center}
-.home-hero h1{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1}
-.home-hero h1 em{color:var(--blue);font-style:normal}
-.home-hero p{color:var(--muted);margin-top:.75rem;font-size:.95rem}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.75rem;margin-top:2rem}
-.pcard{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1rem;cursor:pointer;transition:all .2s;text-align:center}
-.pcard:hover{border-color:var(--blue);transform:translateY(-2px)}
-.pcard .icon{font-size:1.75rem;margin-bottom:.5rem}
-.pcard .num{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-bottom:.3rem}
-.pcard .ttl{font-size:.82rem;font-weight:700;line-height:1.3}
-.notice{margin-top:1.5rem;background:rgba(107,159,255,.07);border:1px solid rgba(107,159,255,.25);border-radius:10px;padding:1rem 1.25rem;font-size:.88rem;line-height:1.6}
-.notice strong{color:var(--yellow)}
+.home-hero { padding: 3rem 0 1.75rem; }
+.home-hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.15; }
+.home-hero h1 em { color: var(--blue); font-style: normal; }
+.home-hero p { color: var(--muted); margin-top: .55rem; font-size: .88rem; }
+.pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: .55rem; margin-top: 1.75rem; }
+.pcard { background: var(--s1); border: 1px solid var(--border); border-radius: 10px; padding: 1rem .95rem; cursor: pointer; transition: border-color .15s, background .15s; }
+.pcard:hover { border-color: var(--blue); background: var(--s2); }
+.pcard .num { font-family: var(--mono); font-size: .56rem; color: var(--muted); margin-bottom: .3rem; letter-spacing: .08em; text-transform: uppercase; }
+.pcard .ttl { font-size: .8rem; font-weight: 600; line-height: 1.4; color: var(--text); }
+.pcard .cat { font-family: var(--mono); font-size: .54rem; color: var(--blue); margin-top: .4rem; letter-spacing: .05em; opacity: .7; }
+.notice { margin-top: 1.25rem; background: var(--s1); border: 1px solid var(--border); border-left: 2px solid var(--yellow); border-radius: var(--r); padding: .8rem 1rem; font-size: .84rem; line-height: 1.65; color: var(--dim); }
+.notice strong { color: var(--text); font-weight: 700; }
 
 /* SECTION HEADER */
-.sec-head{margin-bottom:2rem}
-.sec-head h2{font-size:1.6rem;font-weight:800}
-.sec-head h2 span{color:var(--blue)}
-.sec-head p{color:var(--muted);font-family:var(--mono);font-size:.72rem;margin-top:.3rem}
-.badge{display:inline-block;font-family:var(--mono);font-size:.6rem;padding:.2rem .5rem;border-radius:4px;margin-right:.3rem;vertical-align:middle}
-.badge.dp{background:rgba(107,159,255,.15);color:var(--blue)}
-.badge.gr{background:rgba(77,255,168,.15);color:var(--green)}
-.badge.an{background:rgba(255,209,102,.15);color:var(--yellow)}
+.sec-head { padding-bottom: 1.1rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.sec-head h2 { font-size: 1.35rem; font-weight: 800; }
+.sec-head h2 span { color: var(--blue); }
+.sec-head p { color: var(--muted); font-family: var(--mono); font-size: .63rem; margin-top: .35rem; letter-spacing: .03em; }
+.badge { display: inline-block; font-family: var(--mono); font-size: .57rem; padding: .15rem .4rem; border-radius: 3px; margin-right: .3rem; vertical-align: middle; letter-spacing: .05em; }
+.badge.dp { background: rgba(90,141,240,.1); color: var(--blue); border: 1px solid rgba(90,141,240,.2); }
+.badge.gr { background: rgba(56,196,124,.1); color: var(--green); border: 1px solid rgba(56,196,124,.2); }
+.badge.an { background: rgba(212,160,62,.1); color: var(--yellow); border: 1px solid rgba(212,160,62,.2); }
+
+/* PROGRESS */
+.progress-bar { display: flex; align-items: center; gap: .65rem; margin-bottom: 1.75rem; }
+.progress-bar .track { flex: 1; height: 2px; background: var(--s2); border-radius: 2px; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: var(--blue); border-radius: 2px; width: 0%; transition: width .3s ease; }
+.progress-bar .lbl { font-family: var(--mono); font-size: .6rem; color: var(--muted); white-space: nowrap; }
 
 /* QUESTION BLOCKS */
-.qblock{margin-bottom:2rem}
-.qhead{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem}
-.qnum{font-family:var(--mono);font-size:.7rem;background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;color:var(--blue);flex-shrink:0;margin-top:.1rem}
-.qtxt{font-weight:700;font-size:1rem;line-height:1.5;color:var(--text)}
-.qsub{color:#a0a0c8;font-size:.88rem;line-height:1.6;margin-bottom:.75rem;padding-left:2.5rem}
+.qblock { margin-bottom: 1.75rem; }
+.qhead { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: .6rem; }
+.qnum { font-family: var(--mono); font-size: .6rem; background: var(--s2); border: 1px solid var(--border); border-radius: 4px; padding: .22rem .5rem; color: var(--blue); flex-shrink: 0; margin-top: .18rem; letter-spacing: .04em; }
+.qtxt { font-weight: 600; font-size: .95rem; line-height: 1.55; color: var(--text); }
+.qsub { color: var(--dim); font-size: .86rem; line-height: 1.6; margin-bottom: .6rem; padding-left: 2.4rem; }
 
 /* REVEAL */
-.reveal-wrap{padding-left:2.5rem}
-.rbtn{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.7rem;padding:.4rem .9rem;border-radius:6px;border:1px dashed var(--yellow);background:rgba(255,209,102,.05);color:var(--yellow);cursor:pointer;transition:all .2s;margin-bottom:.6rem}
-.rbtn:hover{background:rgba(255,209,102,.12);border-style:solid}
-.rbtn.open{border-color:var(--muted);color:var(--muted);background:transparent;border-style:dashed}
-.answer{display:none;animation:fadeUp .25s ease}
-.answer.open{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.reveal-wrap { padding-left: 2.4rem; }
+.rbtn { display: inline-flex; align-items: center; gap: .3rem; font-family: var(--mono); font-size: .62rem; padding: .3rem .65rem; border-radius: 5px; border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; transition: color .15s, border-color .15s; margin-bottom: .5rem; letter-spacing: .03em; }
+.rbtn::before { content: '\25B6'; font-size: .45rem; display: inline-block; transition: transform .2s; }
+.rbtn:hover { color: var(--dim); border-color: var(--dim); }
+.rbtn.open { color: var(--muted); }
+.rbtn.open::before { transform: rotate(90deg); }
+.answer { display: none; animation: fadeUp .2s ease; }
+.answer.open { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ANSWER CONTENT COMPONENTS */
-.ans-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:.75rem}
-.ans-card p{line-height:1.75;color:#c0c0e0;font-size:.92rem}
-.ans-card ul,
-.ans-card ol{padding-left:1.2rem;color:#c0c0e0;font-size:.92rem}
-.ans-card li{margin-bottom:.35rem;line-height:1.7}
-.ans-card h4{font-size:.85rem;font-weight:700;margin-bottom:.6rem;color:var(--text)}
-.hl{color:var(--blue);font-weight:700}
-.hl2{color:var(--green);font-weight:700}
-.hl3{color:var(--yellow);font-weight:700}
-.hl4{color:var(--pink);font-weight:700}
-.hl5{color:var(--purple);font-weight:700}
+/* ANSWER CONTENT */
+.ans-card { background: var(--s1); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem 1.1rem; margin-bottom: .55rem; }
+.ans-card p { line-height: 1.75; color: var(--dim); font-size: .9rem; }
+.ans-card ul, .ans-card ol { padding-left: 1.2rem; color: var(--dim); font-size: .9rem; }
+.ans-card li { margin-bottom: .28rem; line-height: 1.7; }
+.ans-card h4 { font-size: .82rem; font-weight: 700; margin-bottom: .45rem; color: var(--text); }
+.hl { color: var(--blue); font-weight: 600; }
+.hl2 { color: var(--green); font-weight: 600; }
+.hl3 { color: var(--yellow); font-weight: 600; }
+.hl4 { color: var(--pink); font-weight: 600; }
+.hl5 { color: var(--purple); font-weight: 600; }
 
-.formula{background:#0a0a18;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;font-family:var(--mono);font-size:.85rem;color:var(--blue);margin:.6rem 0;line-height:1.6}
+.formula { background: var(--s1); border-left: 2px solid var(--blue); border-radius: 0 var(--r) var(--r) 0; padding: .7rem 1rem; font-family: var(--mono); font-size: .8rem; color: var(--blue); margin: .45rem 0; line-height: 1.65; }
 
-.code{background:#0a0a18;border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;font-family:var(--mono);font-size:.78rem;line-height:1.9;overflow-x:auto;margin:.6rem 0;color:#bbd0ff;white-space:pre}
-.code .kw{color:var(--pink)}
-.code .cm{color:#445;font-style:italic}
-.code .nm{color:var(--yellow)}
+.code { background: var(--s1); border: 1px solid var(--border); border-radius: var(--r); padding: .85rem 1rem; font-family: var(--mono); font-size: .75rem; line-height: 1.85; overflow-x: auto; margin: .45rem 0; color: #a8bce0; white-space: pre; }
+.code .kw { color: var(--pink); }
+.code .cm { color: #3a3a58; font-style: italic; }
+.code .nm { color: var(--yellow); }
 
-.callout{border-radius:8px;padding:.9rem 1.1rem;margin:.6rem 0;border:1px solid;font-size:.88rem;line-height:1.65}
-.callout strong{display:block;font-size:.72rem;font-family:var(--mono);margin-bottom:.3rem;letter-spacing:.04em}
-.callout.ok{background:rgba(77,255,168,.06);border-color:rgba(77,255,168,.25)}
-.callout.ok strong{color:var(--green)}
-.callout.info{background:rgba(107,159,255,.06);border-color:rgba(107,159,255,.25)}
-.callout.info strong{color:var(--blue)}
-.callout.warn{background:rgba(255,209,102,.06);border-color:rgba(255,209,102,.25)}
-.callout.warn strong{color:var(--yellow)}
-.callout.note{background:rgba(181,123,238,.06);border-color:rgba(181,123,238,.25)}
-.callout.note strong{color:var(--purple)}
-.callout p,
-.callout li{color:#c0c0e0}
-.callout ul{padding-left:1.1rem;margin-top:.3rem}
+.callout { border-radius: var(--r); padding: .75rem .95rem; margin: .45rem 0; border: 1px solid; font-size: .85rem; line-height: 1.65; }
+.callout strong { display: block; font-size: .6rem; font-family: var(--mono); margin-bottom: .28rem; letter-spacing: .07em; text-transform: uppercase; }
+.callout.ok { background: rgba(56,196,124,.04); border-color: rgba(56,196,124,.15); }
+.callout.ok strong { color: var(--green); }
+.callout.info { background: rgba(90,141,240,.04); border-color: rgba(90,141,240,.15); }
+.callout.info strong { color: var(--blue); }
+.callout.warn { background: rgba(212,160,62,.04); border-color: rgba(212,160,62,.15); }
+.callout.warn strong { color: var(--yellow); }
+.callout.note { background: rgba(138,102,208,.04); border-color: rgba(138,102,208,.15); }
+.callout.note strong { color: var(--purple); }
+.callout p, .callout li { color: var(--dim); }
+.callout ul { padding-left: 1.1rem; margin-top: .22rem; }
 
-.tw{overflow-x:auto;margin:.6rem 0}
-table{border-collapse:collapse;font-family:var(--mono);font-size:.75rem;width:100%}
-th{background:var(--s2);padding:.45rem .7rem;border:1px solid var(--border);color:var(--blue);text-align:center}
-td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#c0c0e0}
-.tc{background:rgba(77,255,168,.12)!important;color:var(--green);font-weight:700}
-.tm{color:var(--muted)}
-.ty{color:var(--yellow);font-weight:700}
+.tw { overflow-x: auto; margin: .45rem 0; }
+table { border-collapse: collapse; font-family: var(--mono); font-size: .72rem; width: 100%; }
+th { background: var(--s2); padding: .38rem .6rem; border: 1px solid var(--border); color: var(--dim); text-align: center; font-weight: 600; }
+td { padding: .38rem .6rem; border: 1px solid var(--border); text-align: center; color: var(--dim); }
+.tc { background: rgba(56,196,124,.07) !important; color: var(--green); font-weight: 600; }
+.tm { color: var(--muted); }
+.ty { color: var(--yellow); font-weight: 600; }
 
-.big{font-family:var(--mono);font-size:1.8rem;font-weight:700;color:var(--green);text-align:center;padding:1.25rem;background:var(--s1);border:1px solid var(--border);border-radius:10px;margin:.6rem 0}
+.big { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--green); text-align: center; padding: 1rem; background: var(--s1); border: 1px solid var(--border); border-radius: var(--r); margin: .45rem 0; }
 
-.divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
+.divider { border: none; border-top: 1px solid var(--border); margin: .8rem 0; }
 
-/* SUB LABEL inside qblock for lettered parts */
-.sublabel{font-family:var(--mono);font-size:.7rem;color:var(--purple);background:rgba(181,123,238,.1);border:1px solid rgba(181,123,238,.2);border-radius:5px;padding:.2rem .5rem;margin-bottom:.5rem;display:inline-block}
+.sublabel { font-family: var(--mono); font-size: .58rem; color: var(--purple); background: rgba(138,102,208,.08); border: 1px solid rgba(138,102,208,.15); border-radius: 3px; padding: .15rem .4rem; margin-bottom: .4rem; display: inline-block; letter-spacing: .05em; text-transform: uppercase; }
+
+/* CONCEPT BLOCK */
+.concept { background: var(--s1); border: 1px solid var(--border); border-radius: var(--r); padding: 1.1rem 1.15rem; margin-bottom: 1.5rem; }
+.concept h4 { font-size: .8rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; font-family: var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--dim); }
+.concept p { font-size: .9rem; color: var(--dim); line-height: 1.75; margin-bottom: .5rem; }
+.concept p:last-child { margin-bottom: 0; }
+.concept ul { padding-left: 1.2rem; color: var(--dim); font-size: .9rem; }
+.concept li { margin-bottom: .3rem; line-height: 1.7; }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">ALGO 🎯</div>
+  <div class="logo">ALGORITHMS</div>
   <div class="navlinks">
     <button class="navbtn on" onclick="goTo('home',this)">Home</button>
     <button class="navbtn" onclick="goTo('p1',this)">P1 · Time Complexity</button>
@@ -145,41 +160,73 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
 
 <div class="wrap">
 
-<!-- ═══════════════════════════════════════════ HOME -->
+<!-- HOME -->
 <div class="page on" id="home">
   <div class="home-hero">
     <h1>Algorithms Midterm<br><em>Study Guide</em></h1>
-    <p>Every sub-question from every problem — answer hidden until you're ready.</p>
+    <p>Every sub-question from every problem — answer hidden until you reveal it.</p>
   </div>
   <div class="pgrid">
-    <div class="pcard" onclick="goTo('p1',null)"><div class="icon">📐</div><div class="num">PROBLEM 1</div><div class="ttl">Time Complexity & Master Theorem</div></div>
-    <div class="pcard" onclick="goTo('p2',null)"><div class="icon">🔗</div><div class="num">PROBLEM 2</div><div class="ttl">Matrix Chain Multiplication (DP)</div></div>
-    <div class="pcard" onclick="goTo('p3',null)"><div class="icon">🎒</div><div class="num">PROBLEM 3</div><div class="ttl">0/1 Knapsack (DP)</div></div>
-    <div class="pcard" onclick="goTo('p4',null)"><div class="icon">🌳</div><div class="num">PROBLEM 4</div><div class="ttl">Huffman Encoding (Greedy)</div></div>
-    <div class="pcard" onclick="goTo('p5',null)"><div class="icon">⚖️</div><div class="num">PROBLEM 5</div><div class="ttl">Fractional Knapsack (Greedy)</div></div>
+    <div class="pcard" onclick="goTo('p1',null)">
+      <div class="num">Problem 1</div>
+      <div class="ttl">Time Complexity &amp; Master Theorem</div>
+      <div class="cat">Time Analysis</div>
+    </div>
+    <div class="pcard" onclick="goTo('p2',null)">
+      <div class="num">Problem 2</div>
+      <div class="ttl">Matrix Chain Multiplication</div>
+      <div class="cat">Dynamic Programming</div>
+    </div>
+    <div class="pcard" onclick="goTo('p3',null)">
+      <div class="num">Problem 3</div>
+      <div class="ttl">0/1 Knapsack</div>
+      <div class="cat">Dynamic Programming</div>
+    </div>
+    <div class="pcard" onclick="goTo('p4',null)">
+      <div class="num">Problem 4</div>
+      <div class="ttl">Huffman Encoding</div>
+      <div class="cat">Greedy</div>
+    </div>
+    <div class="pcard" onclick="goTo('p5',null)">
+      <div class="num">Problem 5</div>
+      <div class="ttl">Fractional Knapsack</div>
+      <div class="cat">Greedy</div>
+    </div>
   </div>
   <div class="notice">
-    <strong>⚠️ Dr. Kim's Rules:</strong> He picks <strong>3 of 5</strong> on the exam. Show all work — no work shown = max 70/100. Late = −20%. Paper only, no laptops.
+    <strong>Exam rules:</strong> 3 of 5 problems will appear. Show all work — no work shown = max 70/100. Paper only, no laptops.
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ PROBLEM 1 -->
+<!-- PROBLEM 1 -->
 <div class="page" id="p1">
   <div class="sec-head">
     <h2><span>Problem 1</span> — Time Complexity of Matrix Multiplication</h2>
     <p><span class="badge an">TIME ANALYSIS</span> Three algorithms · Big-Theta · Master Theorem</p>
   </div>
 
+  <div class="concept">
+    <h4>Core Concept — What is Time Complexity?</h4>
+    <p>Time complexity describes how the number of operations an algorithm performs <em>scales</em> with input size n. We use <strong>Big-Theta (Θ)</strong> to give a tight bound — meaning the runtime grows at exactly that rate, not faster, not slower, up to constant factors.</p>
+    <p>The key question for any algorithm is: <em>what is the most deeply nested operation, and how many times does it execute?</em> Everything else is secondary — we drop lower-order terms and constants because for large n, they don't matter.</p>
+  </div>
+
   <div class="callout info" style="margin-bottom:2rem">
-    <strong>SETUP</strong>
-    <p>Consider the multiplication of two <strong>n × n</strong> matrices. You will analyze 3 algorithms: iterative, divide-and-conquer recursive, and Strassen's. For each, determine the time complexity.</p>
+    <strong>Setup</strong>
+    <p>You will analyze multiplying two <strong>n × n</strong> matrices using three different algorithms. For each, the goal is to count operations precisely, then express it in Big-Theta notation.</p>
   </div>
 
   <!-- PART A -->
-  <h3 style="font-size:1rem;margin-bottom:1rem;color:var(--purple)">Part A — Iterative Matrix Multiplication</h3>
+  <h3 style="font-size:.9rem;margin-bottom:1rem;color:var(--purple);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase">Part A — Iterative Matrix Multiplication</h3>
+
+  <div class="concept">
+    <h4>How iterative matrix multiplication works</h4>
+    <p>To multiply two n×n matrices A and B into result matrix C, each entry C[i][j] is computed as the dot product of row i of A with column j of B. That dot product requires n multiplications (one per element pair). We do this for every (i,j) entry in C, of which there are n×n = n² entries.</p>
+    <p>The algorithm uses three nested loops: the outer two iterate over every (i,j) position in C, and the inner loop computes the dot product by accumulating n multiply-add operations. The innermost line is what we count.</p>
+  </div>
 
   <div class="callout info" style="margin-bottom:1.25rem">
-    <strong>THE ALGORITHM</strong>
+    <strong>The Algorithm</strong>
     <div class="code" style="margin:.4rem 0 0">
 <span class="kw">for</span> i = 1 <span class="kw">to</span> n
   <span class="kw">for</span> j = 1 <span class="kw">to</span> n
@@ -191,15 +238,17 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">A·Q1</div><div class="qtxt">How many times does the innermost multiplication operation execute?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
+          <p>Work through the loops from outside in. Each loop multiplies the count:</p>
           <ul>
             <li>Outer loop (i) runs <span class="hl">n</span> times</li>
-            <li>Middle loop (j) runs <span class="hl">n</span> times per i → n² total (i,j) pairs</li>
+            <li>Middle loop (j) runs <span class="hl">n</span> times per i iteration &rarr; n&sup2; total (i,j) pairs</li>
             <li>Inner loop (k) runs <span class="hl">n</span> times per (i,j) pair</li>
-            <li>Total = n × n × n = <span class="hl2">n³ multiplications</span></li>
+            <li>Total = n &times; n &times; n = <span class="hl2">n&sup3; multiplications</span></li>
           </ul>
+          <p style="margin-top:.6rem">Intuition: there are n&sup2; entries in C, each requiring a dot product of length n. That's n&sup2; &times; n = n&sup3;.</p>
         </div>
       </div>
     </div>
@@ -208,9 +257,9 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">A·Q2</div><div class="qtxt">Express the running time as a function of n.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="ans-card"><p>Each loop iteration performs <strong>constant work</strong>. Since the innermost line runs <span class="hl2">n³</span> times total, the running time is <span class="hl2">T(n) = n³</span>.</p></div>
+        <div class="ans-card"><p>Each loop iteration performs <strong>constant work</strong> (one multiply-add). Since the innermost line runs <span class="hl2">n&sup3;</span> times total, and the initialization C[i][j]=0 adds only n&sup2; work (dominated), the running time is <span class="hl2">T(n) = n&sup3;</span>.</p></div>
       </div>
     </div>
   </div>
@@ -218,28 +267,36 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">A·Q3</div><div class="qtxt">Give the final time complexity using Big-Theta notation.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="formula">T(n) = Θ(n³)</div>
+        <div class="formula">T(n) = &Theta;(n&sup3;)</div>
+        <div class="callout info"><strong>Why Big-Theta and not Big-O?</strong><p>Big-O is an upper bound. Big-Theta is a tight bound — it says the runtime is <em>exactly</em> cubic growth. For iterative matrix multiplication, the loops always run to completion, so the best and worst cases are the same. Theta is the right notation.</p></div>
       </div>
     </div>
   </div>
 
   <hr class="divider">
   <!-- PART B -->
-  <h3 style="font-size:1rem;margin:1.25rem 0 1rem;color:var(--purple)">Part B — Recursive Divide and Conquer</h3>
+  <h3 style="font-size:.9rem;margin:1.25rem 0 1rem;color:var(--purple);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase">Part B — Recursive Divide and Conquer</h3>
+
+  <div class="concept">
+    <h4>The divide and conquer idea</h4>
+    <p>Instead of computing each entry one-by-one, divide and conquer breaks the n×n matrices into four (n/2 × n/2) blocks. The product can then be expressed in terms of products of these sub-blocks. This recursion bottoms out at 1×1 matrices (a single scalar multiply).</p>
+    <p>The key insight: to compute the four blocks of the result matrix C using this block formulation, you need <strong>8 recursive multiplications</strong> of (n/2 × n/2) matrices, plus matrix addition work to combine results. Addition of two n×n matrices costs Θ(n²) because you touch every entry exactly once.</p>
+    <p>The question is: does splitting into subproblems actually reduce the total work? The Master Theorem will tell us.</p>
+  </div>
 
   <div class="callout info" style="margin-bottom:1.25rem">
-    <strong>SETUP</strong>
+    <strong>Setup</strong>
     <p>Matrices are split into four <strong>(n/2 × n/2)</strong> blocks and multiplied recursively. This requires 8 recursive multiplications plus addition work costing Θ(n²).</p>
   </div>
 
   <div class="qblock">
     <div class="qhead"><div class="qnum">B·Q1</div><div class="qtxt">How many recursive matrix multiplications occur?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="ans-card"><p>Each n×n matrix is divided into four (n/2 × n/2) blocks. To compute the product using block multiplication, <span class="hl2">8 recursive multiplications</span> are performed.</p></div>
+        <div class="ans-card"><p>Each n×n matrix is divided into four (n/2 × n/2) blocks. To compute the product using block multiplication, <span class="hl2">8 recursive multiplications</span> are performed — this comes directly from the block matrix multiplication formula (each of the 4 result blocks requires 2 sub-multiplications).</p></div>
       </div>
     </div>
   </div>
@@ -247,9 +304,9 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">B·Q2</div><div class="qtxt">What is the size of each recursive subproblem?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="ans-card"><p>Each recursive call works on matrices of size <span class="hl2">n/2 × n/2</span>.</p></div>
+        <div class="ans-card"><p>Each recursive call works on matrices of size <span class="hl2">n/2 × n/2</span>. We halved both dimensions, so the problem size is n/2.</p></div>
       </div>
     </div>
   </div>
@@ -257,10 +314,10 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">B·Q3</div><div class="qtxt">Write the recurrence relation T(n).</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="formula">T(n) = 8T(n/2) + Θ(n²)</div>
-        <div class="callout info"><strong>WHY?</strong><p>8 subproblems each of size n/2, plus Θ(n²) work for the matrix additions/combinations.</p></div>
+        <div class="formula">T(n) = 8T(n/2) + &Theta;(n&sup2;)</div>
+        <div class="callout info"><strong>Reading the recurrence</strong><p>T(n) is the total work for size n. The "8T(n/2)" term accounts for making 8 recursive calls on half-size problems. The "Θ(n²)" term is the work done at this level: adding/subtracting the sub-matrices to combine results. Every recurrence for divide and conquer follows this pattern: subproblem work + combine work.</p></div>
       </div>
     </div>
   </div>
@@ -268,22 +325,30 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">B·Q4</div><div class="qtxt">Use the Master Theorem to solve the recurrence. Show a, b, f(n), and which case applies.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="ans-card">
-          <h4>Master Theorem: T(n) = aT(n/b) + f(n)</h4>
+        <div class="concept" style="margin-bottom:.55rem">
+          <h4>Master Theorem — T(n) = aT(n/b) + f(n)</h4>
+          <p>The Master Theorem solves recurrences of this form by comparing f(n) (the work done outside recursion) against n<sup>log_b(a)</sup> (which represents the total work done at the leaves of the recursion tree).</p>
           <ul>
-            <li><span class="hl">a = 8</span> (number of subproblems)</li>
-            <li><span class="hl">b = 2</span> (subproblem size factor)</li>
-            <li><span class="hl">f(n) = Θ(n²)</span> (work outside recursion)</li>
+            <li><strong>a</strong> = number of subproblems spawned per call</li>
+            <li><strong>b</strong> = factor by which input size shrinks</li>
+            <li><strong>f(n)</strong> = non-recursive work per level</li>
+            <li><strong>c = log_b(a)</strong> = critical exponent, the "balance point"</li>
+          </ul>
+        </div>
+        <div class="ans-card">
+          <ul>
+            <li><span class="hl">a = 8</span> — 8 recursive subproblems</li>
+            <li><span class="hl">b = 2</span> — problem size halves each time</li>
+            <li><span class="hl">f(n) = Θ(n²)</span> — the matrix addition work</li>
           </ul>
           <br>
           <p>Critical exponent: <span class="hl3">log<sub>b</sub>(a) = log<sub>2</sub>(8) = 3</span></p>
           <br>
-          <p>Compare f(n) = n² with n<sup>3</sup>:</p>
-          <p>f(n) grows <strong>slower</strong> than n³ → <span class="hl2">Case 1 applies</span></p>
+          <p>Compare f(n) = n² with n<sup>3</sup>: f(n) grows <strong>slower</strong> than n<sup>3</sup> &rarr; <span class="hl2">Case 1 applies</span></p>
         </div>
-        <div class="callout warn"><strong>MASTER THEOREM CASE 1</strong><p>If f(n) = O(n<sup>c−ε</sup>) for some ε &gt; 0 where c = log<sub>b</sub>(a), then T(n) = Θ(n<sup>c</sup>)</p></div>
+        <div class="callout warn"><strong>Master Theorem Case 1</strong><p>If f(n) = O(n<sup>c&minus;&epsilon;</sup>) for some &epsilon; &gt; 0 where c = log<sub>b</sub>(a), then T(n) = Θ(n<sup>c</sup>). This case means the recursion tree's leaves dominate — most of the work happens at the bottom of the tree, not at the top.</p></div>
       </div>
     </div>
   </div>
@@ -291,30 +356,36 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">B·Q5</div><div class="qtxt">State the final time complexity.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="formula">T(n) = Θ(n³)</div>
-        <div class="callout ok"><strong>INSIGHT</strong><p>Same as the brute-force iterative algorithm! Dividing into subproblems didn't help here — still Θ(n³).</p></div>
+        <div class="formula">T(n) = &Theta;(n&sup3;)</div>
+        <div class="callout ok"><strong>Key Insight</strong><p>Exactly the same as the brute-force iterative algorithm. Dividing into subproblems didn't help here because we still spawn 8 subproblems — the recursion tree has the same total leaf work as just doing it iteratively. The overhead of divide and conquer didn't buy us anything when a=8.</p></div>
       </div>
     </div>
   </div>
 
   <hr class="divider">
   <!-- PART C -->
-  <h3 style="font-size:1rem;margin:1.25rem 0 1rem;color:var(--purple)">Part C — Strassen's Algorithm</h3>
+  <h3 style="font-size:.9rem;margin:1.25rem 0 1rem;color:var(--purple);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase">Part C — Strassen's Algorithm</h3>
+
+  <div class="concept">
+    <h4>The algebraic trick behind Strassen</h4>
+    <p>Strassen's key insight is that you can compute the 4 block sub-matrices of C using only <strong>7 multiplications</strong> instead of 8, by cleverly reusing intermediate products. This requires computing 7 "helper" matrices (M₁–M₇) using sums/differences of blocks first, then combining them. Each of those 7 helper computations is a single (n/2 × n/2) matrix multiply.</p>
+    <p>The extra additions and subtractions needed to set up M₁–M₇ and combine them still cost Θ(n²). So the recurrence looks almost identical — except a drops from 8 to 7. That one change has a surprisingly large effect on the exponent.</p>
+  </div>
 
   <div class="callout info" style="margin-bottom:1.25rem">
-    <strong>SETUP</strong>
-    <p>Strassen's algorithm reduces recursive multiplications from <strong>8 → 7</strong> using clever algebraic tricks. Matrix additions/subtractions still cost O(n²).</p>
+    <strong>Setup</strong>
+    <p>Strassen's algorithm reduces recursive multiplications from <strong>8 to 7</strong> via algebraic manipulation. Matrix additions/subtractions still cost Θ(n²).</p>
   </div>
 
   <div class="qblock">
     <div class="qhead"><div class="qnum">C·Q1</div><div class="qtxt">Write the recurrence relation for Strassen's algorithm.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="formula">T(n) = 7T(n/2) + Θ(n²)</div>
-        <div class="callout info"><strong>DIFFERENCE FROM PART B</strong><p>Only change: <strong>a = 7</strong> instead of 8. That one fewer multiplication changes everything.</p></div>
+        <div class="formula">T(n) = 7T(n/2) + &Theta;(n&sup2;)</div>
+        <div class="callout info"><strong>Only change from Part B</strong><p>a = 7 instead of 8. Everything else is identical. Saving one recursive call changes the leaf-level work count from 8^depth to 7^depth — which drastically reduces the total work for large n.</p></div>
       </div>
     </div>
   </div>
@@ -322,13 +393,13 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">C·Q2</div><div class="qtxt">Identify the parameters a, b, and f(n) for the Master Theorem.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <ul>
-            <li><span class="hl">a = 7</span></li>
-            <li><span class="hl">b = 2</span></li>
-            <li><span class="hl">f(n) = Θ(n²)</span></li>
+            <li><span class="hl">a = 7</span> — 7 recursive subproblems (Strassen's trick)</li>
+            <li><span class="hl">b = 2</span> — problem size still halves each time</li>
+            <li><span class="hl">f(n) = Θ(n²)</span> — matrix additions/subtractions at each level</li>
           </ul>
         </div>
       </div>
@@ -338,13 +409,14 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">C·Q3</div><div class="qtxt">Apply the Master Theorem. Compute the critical exponent and determine which case applies.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>Critical exponent: <span class="hl3">log<sub>2</sub>(7) ≈ 2.807</span></p>
+          <p>Critical exponent: <span class="hl3">log<sub>2</sub>(7) &asymp; 2.807</span></p>
           <br>
           <p>Compare f(n) = n² with n<sup>2.807</sup>:</p>
-          <p>f(n) = n² grows <strong>slower</strong> than n<sup>2.807</sup> → <span class="hl2">Case 1 applies</span></p>
+          <p>f(n) = n² grows <strong>slower</strong> than n<sup>2.807</sup> &rarr; <span class="hl2">Case 1 applies</span></p>
+          <p style="margin-top:.5rem">Because f(n) is dominated by the leaf work, T(n) = Θ(n<sup>log₂7</sup>).</p>
         </div>
       </div>
     </div>
@@ -353,60 +425,65 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">C·Q4</div><div class="qtxt">Determine the final time complexity.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="formula">T(n) = Θ(n^log₂7) ≈ Θ(n^2.807)</div>
-        <div class="callout ok"><strong>✅ KEY INSIGHT</strong><p>One fewer multiplication changed the exponent from 3.0 → 2.807. For massive matrices this is a significant speedup — Strassen is asymptotically faster than standard multiplication.</p></div>
+        <div class="formula">T(n) = &Theta;(n^log&sub2;7) &asymp; &Theta;(n^2.807)</div>
+        <div class="callout ok"><strong>Key Insight</strong><p>One fewer multiplication changed the exponent from 3.0 to 2.807. This might seem small, but for large n the difference is enormous. For n = 1000, n³ = 10⁹ while n^2.807 &asymp; 3.2 × 10⁸ — about 3× faster. Strassen is asymptotically faster than standard matrix multiplication, which is why it matters theoretically even though constants make it impractical for small n.</p></div>
       </div>
     </div>
   </div>
 
   <div class="callout note" style="margin-top:2rem">
-    <strong>📋 MASTER THEOREM CHEAT SHEET</strong>
+    <strong>Master Theorem Cheat Sheet</strong>
     <p>T(n) = aT(n/b) + f(n), let c = log<sub>b</sub>(a)</p>
     <ul>
-      <li><strong>Case 1:</strong> f(n) grows slower than n<sup>c</sup> → T(n) = Θ(n<sup>c</sup>)</li>
-      <li><strong>Case 2:</strong> f(n) = Θ(n<sup>c</sup>) → T(n) = Θ(n<sup>c</sup> log n)</li>
-      <li><strong>Case 3:</strong> f(n) grows faster than n<sup>c</sup> → T(n) = Θ(f(n))</li>
+      <li><strong>Case 1:</strong> f(n) = O(n<sup>c&minus;&epsilon;</sup>) &rarr; leaves dominate &rarr; T(n) = Θ(n<sup>c</sup>)</li>
+      <li><strong>Case 2:</strong> f(n) = Θ(n<sup>c</sup>) &rarr; all levels equal &rarr; T(n) = Θ(n<sup>c</sup> log n)</li>
+      <li><strong>Case 3:</strong> f(n) = Ω(n<sup>c+&epsilon;</sup>) &rarr; top level dominates &rarr; T(n) = Θ(f(n))</li>
     </ul>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ PROBLEM 2 -->
+<!-- PROBLEM 2 -->
 <div class="page" id="p2">
   <div class="sec-head">
     <h2><span>Problem 2</span> — Matrix Chain Multiplication</h2>
     <p><span class="badge dp">DYNAMIC PROGRAMMING</span> Bottom-up · m and s tables · Parenthesization</p>
   </div>
 
+  <div class="concept">
+    <h4>Core Concept — Why Parenthesization Matters</h4>
+    <p>Matrix multiplication is associative: (A×B)×C = A×(B×C). But the <em>cost</em> — number of scalar multiplications — depends heavily on the order you parenthesize. Different orderings can differ by orders of magnitude in cost.</p>
+    <p>This is a dynamic programming problem because: (1) it has optimal substructure — the optimal solution to the full chain includes optimal solutions to sub-chains, and (2) sub-chains overlap — the same sub-chain appears in many different full-chain calculations, so we cache results in the m table rather than recomputing.</p>
+    <p>We fill the table in order of increasing chain length, so that when we compute m[i][j], all shorter sub-chains are already solved.</p>
+  </div>
+
   <div class="callout info" style="margin-bottom:1.5rem">
-    <strong>PROBLEM STATEMENT</strong>
+    <strong>Problem Statement</strong>
     <p>Given: <strong>A₁(7×2), A₂(2×9), A₃(9×6), A₄(6×5)</strong><br>
     Find the minimum scalar multiplications to compute A₁×A₂×A₃×A₄ and the optimal parenthesization.<br>
     Fill tables: <strong>m[i][j]</strong> (min cost) and <strong>s[i][j]</strong> (split point k).</p>
   </div>
 
-  <!-- Step 1 -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 1</div><div class="qtxt">Define the dimensions array p[].</div></div>
     <div class="qsub">Matrix Aᵢ has dimensions p[i−1] × p[i]. What is p[] for these four matrices?</div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="formula">p = [7, 2, 9, 6, 5]</div>
-        <div class="callout info"><strong>WHY?</strong><p>p[0]=7, p[1]=2 → A₁ is 7×2 &nbsp;|&nbsp; p[1]=2, p[2]=9 → A₂ is 2×9 &nbsp;|&nbsp; p[2]=9, p[3]=6 → A₃ is 9×6 &nbsp;|&nbsp; p[3]=6, p[4]=5 → A₄ is 6×5</p></div>
+        <div class="callout info"><strong>Why?</strong><p>p[0]=7, p[1]=2 &rarr; A₁ is 7×2 &nbsp;|&nbsp; p[1]=2, p[2]=9 &rarr; A₂ is 2×9 &nbsp;|&nbsp; p[2]=9, p[3]=6 &rarr; A₃ is 9×6 &nbsp;|&nbsp; p[3]=6, p[4]=5 &rarr; A₄ is 6×5. Notice how adjacent dimensions share a value — this is what makes the matrices compatible for multiplication.</p></div>
       </div>
     </div>
   </div>
 
-  <!-- Step 2 -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 2</div><div class="qtxt">Initialize the m[i][j] and s[i][j] tables.</div></div>
     <div class="qsub">What values go on the diagonal? Why?</div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="ans-card"><p>Set <span class="hl2">m[i][i] = 0</span> for all i. A single matrix costs nothing to "multiply" — there's no operation needed. All other cells start empty.</p></div>
+        <div class="ans-card"><p>Set <span class="hl2">m[i][i] = 0</span> for all i. A single matrix requires no multiplication — there is nothing to multiply. The cost of "multiplying" a chain of length 1 is zero by definition. All other cells start empty (to be filled).</p></div>
         <div class="tw"><table>
           <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
           <tr><td>i=1</td><td class="tc">0</td><td class="tm">?</td><td class="tm">?</td><td class="tm">?</td></tr>
@@ -418,41 +495,39 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
     </div>
   </div>
 
-  <!-- Step 3 -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3</div><div class="qtxt">State the recurrence formula for m[i][j]. What does k represent?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
-        <div class="formula">m[i][j] = min over all k where i ≤ k &lt; j of:<br>m[i][k] + m[k+1][j] + p[i−1] × p[k] × p[j]</div>
+        <div class="formula">m[i][j] = min over all k where i &le; k &lt; j of:<br>m[i][k] + m[k+1][j] + p[i&minus;1] &times; p[k] &times; p[j]</div>
         <div class="ans-card">
           <h4>What k means:</h4>
           <ul>
             <li>k is the <strong>split point</strong> — where you divide the chain Aᵢ...Aⱼ into two halves</li>
-            <li><strong>Left side:</strong> Aᵢ...Aₖ → cost is m[i][k]</li>
-            <li><strong>Right side:</strong> Aₖ₊₁...Aⱼ → cost is m[k+1][j]</li>
-            <li><strong>Merge cost:</strong> multiply the two resulting matrices → p[i−1] × p[k] × p[j]</li>
+            <li><strong>Left side:</strong> Aᵢ...Aₖ &rarr; already optimally computed, cost = m[i][k]</li>
+            <li><strong>Right side:</strong> Aₖ₊₁...Aⱼ &rarr; already optimally computed, cost = m[k+1][j]</li>
+            <li><strong>Merge cost:</strong> multiplying the two resulting matrices costs p[i−1] × p[k] × p[j] (dimensions of the left result × right result)</li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Step 4: chain length 2 -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 4a</div><div class="qtxt">Compute chain length = 2: fill m[1][2], m[2][3], m[3][4] and the corresponding s values.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <p><span class="hl">m[1][2]</span>: Only split is k=1<br>
-          = m[1][1] + m[2][2] + p[0]×p[1]×p[2] = 0 + 0 + 7×2×9 = <span class="hl2">126</span> → s[1][2] = 1</p>
+          = m[1][1] + m[2][2] + p[0]×p[1]×p[2] = 0 + 0 + 7×2×9 = <span class="hl2">126</span> &rarr; s[1][2] = 1</p>
           <br>
           <p><span class="hl">m[2][3]</span>: Only split is k=2<br>
-          = 0 + 0 + p[1]×p[2]×p[3] = 2×9×6 = <span class="hl2">108</span> → s[2][3] = 2</p>
+          = 0 + 0 + p[1]×p[2]×p[3] = 2×9×6 = <span class="hl2">108</span> &rarr; s[2][3] = 2</p>
           <br>
           <p><span class="hl">m[3][4]</span>: Only split is k=3<br>
-          = 0 + 0 + p[2]×p[3]×p[4] = 9×6×5 = <span class="hl2">270</span> → s[3][4] = 3</p>
+          = 0 + 0 + p[2]×p[3]×p[4] = 9×6×5 = <span class="hl2">270</span> &rarr; s[3][4] = 3</p>
         </div>
         <div class="tw"><table>
           <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
@@ -465,11 +540,10 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
     </div>
   </div>
 
-  <!-- Step 5: chain length 3 -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 4b</div><div class="qtxt">Compute chain length = 3: fill m[1][3] and m[2][4]. Show all k values tried.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <p><span class="hl">m[1][3]</span> — try k=1 and k=2:</p>
@@ -477,14 +551,14 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
             <li>k=1: m[1][1] + m[2][3] + p[0]×p[1]×p[3] = 0 + 108 + 7×2×6 = 108 + 84 = <span class="hl3">192</span></li>
             <li>k=2: m[1][2] + m[3][3] + p[0]×p[2]×p[3] = 126 + 0 + 7×9×6 = 126 + 378 = 504</li>
           </ul>
-          <p>Min = <span class="hl2">192</span> at k=1 → <strong>m[1][3] = 192, s[1][3] = 1</strong></p>
+          <p>Min = <span class="hl2">192</span> at k=1 &rarr; <strong>m[1][3] = 192, s[1][3] = 1</strong></p>
           <hr class="divider">
           <p><span class="hl">m[2][4]</span> — try k=2 and k=3:</p>
           <ul>
             <li>k=2: m[2][2] + m[3][4] + p[1]×p[2]×p[4] = 0 + 270 + 2×9×5 = 270 + 90 = 360</li>
             <li>k=3: m[2][3] + m[4][4] + p[1]×p[3]×p[4] = 108 + 0 + 2×6×5 = 108 + 60 = <span class="hl3">168</span></li>
           </ul>
-          <p>Min = <span class="hl2">168</span> at k=3 → <strong>m[2][4] = 168, s[2][4] = 3</strong></p>
+          <p>Min = <span class="hl2">168</span> at k=3 &rarr; <strong>m[2][4] = 168, s[2][4] = 3</strong></p>
         </div>
         <div class="tw"><table>
           <tr><th>m[i][j]</th><th>j=1</th><th>j=2</th><th>j=3</th><th>j=4</th></tr>
@@ -497,11 +571,10 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
     </div>
   </div>
 
-  <!-- Step 6: chain length 4 -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 4c</div><div class="qtxt">Compute chain length = 4: fill m[1][4]. Show all k values tried.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <p><span class="hl">m[1][4]</span> — try k=1, k=2, k=3:</p>
@@ -510,18 +583,17 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
             <li>k=2: m[1][2] + m[3][4] + p[0]×p[2]×p[4] = 126 + 270 + 7×9×5 = 396 + 315 = 711</li>
             <li>k=3: m[1][3] + m[4][4] + p[0]×p[3]×p[4] = 192 + 0 + 7×6×5 = 192 + 210 = 402</li>
           </ul>
-          <p>Min = <span class="hl2">238</span> at k=1 → <strong>m[1][4] = 238, s[1][4] = 1</strong></p>
+          <p>Min = <span class="hl2">238</span> at k=1 &rarr; <strong>m[1][4] = 238, s[1][4] = 1</strong></p>
         </div>
         <div class="big">Minimum scalar multiplications = 238</div>
       </div>
     </div>
   </div>
 
-  <!-- Final tables -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">FINAL</div><div class="qtxt">Write the completed m[i][j] and s[i][j] tables.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal tables</button>
+      <button class="rbtn" onclick="rev(this)">Show Tables</button>
       <div class="answer">
         <p style="font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:.4rem">m[i][j] — minimum cost:</p>
         <div class="tw"><table>
@@ -543,48 +615,55 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
     </div>
   </div>
 
-  <!-- Parenthesization -->
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 5</div><div class="qtxt">Use the s table to construct the optimal parenthesization step-by-step.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
+          <p>Read the s table recursively: s[i][j] tells you where to split the chain from i to j.</p>
           <ol>
-            <li>Full chain A₁–A₄: look at <span class="hl">s[1][4] = 1</span> → split after A₁ → <strong>(A₁) × (A₂A₃A₄)</strong></li>
-            <li>Right subchain A₂–A₄: look at <span class="hl">s[2][4] = 3</span> → split after A₃ → <strong>(A₂A₃) × A₄</strong></li>
-            <li>Left subchain A₂–A₃: look at <span class="hl">s[2][3] = 2</span> → split after A₂ → <strong>(A₂) × (A₃)</strong></li>
+            <li>Full chain A₁–A₄: <span class="hl">s[1][4] = 1</span> &rarr; split after A₁ &rarr; <strong>(A₁) × (A₂A₃A₄)</strong></li>
+            <li>Right subchain A₂–A₄: <span class="hl">s[2][4] = 3</span> &rarr; split after A₃ &rarr; <strong>(A₂A₃) × A₄</strong></li>
+            <li>Left subchain A₂–A₃: <span class="hl">s[2][3] = 2</span> &rarr; split after A₂ &rarr; <strong>(A₂) × (A₃)</strong></li>
           </ol>
         </div>
-        <div class="callout ok"><strong>✅ OPTIMAL PARENTHESIZATION</strong><p><strong>( A₁ × ((A₂ × A₃) × A₄) )</strong> — total cost: 238 scalar multiplications</p></div>
+        <div class="callout ok"><strong>Optimal Parenthesization</strong><p><strong>( A₁ × ((A₂ × A₃) × A₄) )</strong> — total cost: 238 scalar multiplications</p></div>
       </div>
     </div>
   </div>
 
   <div class="callout note" style="margin-top:2rem">
-    <strong>📝 PSEUDOCODE</strong>
+    <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
 <span class="kw">for</span> len = 2 <span class="kw">to</span> n:
   <span class="kw">for</span> i = 1 <span class="kw">to</span> n-len+1:
     j = i + len - 1
-    m[i][j] = ∞
+    m[i][j] = &infin;
     <span class="kw">for</span> k = i <span class="kw">to</span> j-1:
-      q = m[i][k] + m[k+1][j] + p[i-1]·p[k]·p[j]
+      q = m[i][k] + m[k+1][j] + p[i-1]&middot;p[k]&middot;p[j]
       <span class="kw">if</span> q &lt; m[i][j]:
         m[i][j] = q
         s[i][j] = k</div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ PROBLEM 3 -->
+<!-- PROBLEM 3 -->
 <div class="page" id="p3">
   <div class="sec-head">
     <h2><span>Problem 3</span> — 0/1 Knapsack</h2>
     <p><span class="badge dp">DYNAMIC PROGRAMMING</span> Include/exclude decision · Build table row by row · Traceback</p>
   </div>
 
+  <div class="concept">
+    <h4>Core Concept — Why DP is Necessary</h4>
+    <p>In 0/1 Knapsack, each item is either taken whole or not at all. A greedy approach (take best ratio first) does not work here — it can get stuck with a suboptimal combination when partial items aren't allowed.</p>
+    <p>The DP approach builds a table P[i][w] that answers: "what is the maximum profit using only items 1 through i, with capacity exactly w?" By building this up from i=0 and w=0, each cell can be computed using previously solved sub-problems in O(1) time, giving an overall O(nW) algorithm.</p>
+    <p>At each cell, you make one binary decision: include item i (if it fits) or exclude it. You take the max of the two choices.</p>
+  </div>
+
   <div class="callout info" style="margin-bottom:1.5rem">
-    <strong>PROBLEM STATEMENT</strong>
+    <strong>Problem Statement</strong>
     <p>Knapsack capacity: <strong>W = 8 lbs</strong>, n = 4 items. Maximize profit. Each item taken whole or not at all.</p>
     <div class="tw" style="margin-top:.75rem"><table>
       <tr><th>Item</th><th>Profit</th><th>Weight</th></tr>
@@ -598,14 +677,14 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 1</div><div class="qtxt">Define the profit and weight arrays. How large is the DP table?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <p>Profit = [1, 2, 5, 6] &nbsp;&nbsp; Weight = [2, 3, 4, 5]</p>
           <br>
           <p>Table P[i][w]: i = items considered (0 to n=4), w = capacity (0 to W=8)</p>
           <p>Dimensions: <span class="hl2">(n+1) × (W+1) = 5 × 9</span></p>
-          <p>Initialize all to 0.</p>
+          <p>Initialize all to 0. Row 0 (no items) is trivially all zeros — with no items available, profit is always 0.</p>
         </div>
       </div>
     </div>
@@ -614,17 +693,17 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 2</div><div class="qtxt">State the recurrence formula. When do you include vs. exclude an item?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="callout warn">
-          <strong>RECURRENCE</strong>
-          <p>If Weight[i] &gt; w (item too heavy): &nbsp; <strong>P[i][w] = P[i−1][w]</strong></p>
-          <p>Otherwise: &nbsp; <strong>P[i][w] = max( P[i−1][w] , Profit[i] + P[i−1][w − Weight[i]] )</strong></p>
+          <strong>Recurrence</strong>
+          <p>If Weight[i] &gt; w (item too heavy): &nbsp; <strong>P[i][w] = P[i&minus;1][w]</strong></p>
+          <p>Otherwise: &nbsp; <strong>P[i][w] = max( P[i&minus;1][w] , Profit[i] + P[i&minus;1][w &minus; Weight[i]] )</strong></p>
         </div>
         <div class="ans-card">
-          <p><span class="hl3">Exclude:</span> take best profit from row above (same capacity) = P[i−1][w]</p>
-          <p><span class="hl2">Include:</span> add this item's profit to the best profit achievable with remaining capacity = Profit[i] + P[i−1][w − Weight[i]]</p>
-          <p>Take the <strong>max</strong> of the two options.</p>
+          <p><span class="hl3">Exclude:</span> take best profit from row above (same capacity) = P[i−1][w]. We pretend item i doesn't exist.</p>
+          <p><span class="hl2">Include:</span> take this item's profit, then look up the best profit achievable with the remaining capacity = Profit[i] + P[i−1][w − Weight[i]]. We "use up" Weight[i] capacity and get Profit[i] in return.</p>
+          <p>Take the <strong>max</strong> of the two options — DP always records the best achievable.</p>
         </div>
       </div>
     </div>
@@ -633,10 +712,10 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3a</div><div class="qtxt">Fill Row 1 — Item 1 (Profit=1, Weight=2). Show your calculations.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>w=0,1: Weight[1]=2 &gt; w → can't fit → copy 0 from row above</p>
+          <p>w=0,1: Weight[1]=2 &gt; w &rarr; can't fit &rarr; copy 0 from row above</p>
           <p>w=2: max(P[0][2], 1 + P[0][0]) = max(0, 1+0) = <span class="hl2">1</span></p>
           <p>w=3: max(P[0][3], 1 + P[0][1]) = max(0, 1+0) = <span class="hl2">1</span></p>
           <p>w=4–8: same logic, always max(0, 1) = <span class="hl2">1</span></p>
@@ -653,10 +732,10 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3b</div><div class="qtxt">Fill Row 2 — Item 2 (Profit=2, Weight=3). Show your calculations.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>w=0,1,2: Weight[2]=3 &gt; w → copy row above: 0, 0, 1</p>
+          <p>w=0,1,2: Weight[2]=3 &gt; w &rarr; copy row above: 0, 0, 1</p>
           <p>w=3: max(P[1][3], 2+P[1][0]) = max(1, 2+0) = <span class="hl2">2</span></p>
           <p>w=4: max(P[1][4], 2+P[1][1]) = max(1, 2+0) = <span class="hl2">2</span></p>
           <p>w=5: max(P[1][5], 2+P[1][2]) = max(1, 2+1) = <span class="hl2">3</span></p>
@@ -676,10 +755,10 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3c</div><div class="qtxt">Fill Row 3 — Item 3 (Profit=5, Weight=4). Show your calculations.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>w=0–3: Weight[3]=4 &gt; w → copy row above: 0,0,1,2</p>
+          <p>w=0–3: Weight[3]=4 &gt; w &rarr; copy row above: 0,0,1,2</p>
           <p>w=4: max(P[2][4], 5+P[2][0]) = max(2, 5+0) = <span class="hl2">5</span></p>
           <p>w=5: max(P[2][5], 5+P[2][1]) = max(3, 5+0) = <span class="hl2">5</span></p>
           <p>w=6: max(P[2][6], 5+P[2][2]) = max(3, 5+1) = <span class="hl2">6</span></p>
@@ -698,14 +777,14 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3d</div><div class="qtxt">Fill Row 4 — Item 4 (Profit=6, Weight=5). Show your calculations. What is the maximum profit?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>w=0–4: Weight[4]=5 &gt; w → copy row above: 0,0,1,2,5</p>
+          <p>w=0–4: Weight[4]=5 &gt; w &rarr; copy row above: 0,0,1,2,5</p>
           <p>w=5: max(P[3][5], 6+P[3][0]) = max(5, 6+0) = <span class="hl2">6</span></p>
           <p>w=6: max(P[3][6], 6+P[3][1]) = max(6, 6+0) = <span class="hl2">6</span></p>
           <p>w=7: max(P[3][7], 6+P[3][2]) = max(7, 6+1) = <span class="hl2">7</span></p>
-          <p>w=8: max(P[3][8], 6+P[3][3]) = max(7, 6+2) = <span class="hl2">8</span> ← final answer!</p>
+          <p>w=8: max(P[3][8], 6+P[3][3]) = max(7, 6+2) = <span class="hl2">8</span> &larr; final answer</p>
         </div>
         <div class="tw"><table>
           <tr><th>i\w</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
@@ -723,27 +802,27 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 4</div><div class="qtxt">Perform the traceback. Starting from P[4][8], determine which items were included.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
+          <p>Traceback rule: at P[i][w], if P[i][w] &ne; P[i-1][w], then item i was included. Subtract its weight and move to row i-1. If equal, item i was excluded — move up a row, same column.</p>
           <ol>
-            <li>P[4][8]=8 vs P[3][8]=7 → <span class="hl2">different</span> → <strong>Item 4 INCLUDED</strong>. Subtract weight 5 → go to P[3][3]</li>
-            <li>P[3][3]=2 vs P[2][3]=2 → <span class="hl4">same</span> → <strong>Item 3 NOT included</strong>. Stay at w=3 → go to P[2][3]</li>
-            <li>P[2][3]=2 vs P[1][3]=1 → <span class="hl2">different</span> → <strong>Item 2 INCLUDED</strong>. Subtract weight 3 → go to P[1][0]</li>
-            <li>P[1][0]=0 → base case reached. Done.</li>
+            <li>P[4][8]=8 vs P[3][8]=7 &rarr; <span class="hl2">different</span> &rarr; <strong>Item 4 INCLUDED</strong>. w = 8&minus;5 = 3. Go to P[3][3].</li>
+            <li>P[3][3]=2 vs P[2][3]=2 &rarr; <span class="hl4">same</span> &rarr; <strong>Item 3 NOT included</strong>. Stay at w=3. Go to P[2][3].</li>
+            <li>P[2][3]=2 vs P[1][3]=1 &rarr; <span class="hl2">different</span> &rarr; <strong>Item 2 INCLUDED</strong>. w = 3&minus;3 = 0. Go to P[1][0].</li>
+            <li>P[1][0]=0 &rarr; base case reached. Done.</li>
           </ol>
         </div>
-        <div class="callout ok">
-          <strong>✅ FINAL ANSWER</strong>
+        <div class="callout ok"><strong>Final Answer</strong>
           <p><strong>Item 2</strong> (Profit=2, Weight=3) + <strong>Item 4</strong> (Profit=6, Weight=5)<br>
-          Total Weight = 8 lbs ✓ &nbsp; Total Profit = <strong>8</strong> ✓</p>
+          Total Weight = 8 lbs &check; &nbsp; Total Profit = <strong>8</strong> &check;</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="callout note" style="margin-top:2rem">
-    <strong>📝 PSEUDOCODE</strong>
+    <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
 <span class="kw">for</span> i = 1 <span class="kw">to</span> n:
   <span class="kw">for</span> w = 0 <span class="kw">to</span> W:
@@ -754,25 +833,31 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ PROBLEM 4 -->
+<!-- PROBLEM 4 -->
 <div class="page" id="p4">
   <div class="sec-head">
     <h2><span>Problem 4</span> — Huffman Encoding</h2>
     <p><span class="badge gr">GREEDY</span> Frequency count · Min-heap tree · Variable-length codes · Compression</p>
   </div>
 
+  <div class="concept">
+    <h4>Core Concept — Variable-Length Encoding</h4>
+    <p>In a fixed-length encoding, every character gets the same number of bits (e.g., ASCII uses 8). Huffman encoding assigns <em>shorter codes to more frequent characters</em> and longer codes to rare ones, minimizing the total bits needed to encode a message.</p>
+    <p>It's greedy: at each step, merge the two lowest-frequency nodes in the priority queue into a new internal node. This builds a binary tree where the path from root to a leaf is the code for that character. The greedy choice (always merge the two smallest) is provably optimal.</p>
+    <p>The result is a <strong>prefix-free code</strong> — no code is a prefix of another — which means encoded bitstrings can be decoded unambiguously without delimiters.</p>
+  </div>
+
   <div class="callout info" style="margin-bottom:1.5rem">
-    <strong>PROBLEM STATEMENT</strong>
+    <strong>Problem Statement</strong>
     <p>Apply Huffman compression to the string <strong>"balloon"</strong> (case-insensitive).<br>
     Steps: (a) count frequencies, (b) build tree, (c) assign codes, (d) encode string, (e) compare with fixed-length encoding.</p>
   </div>
 
-  <!-- a -->
   <div class="qblock">
     <div class="sublabel">Part a</div>
     <div class="qhead"><div class="qnum">a</div><div class="qtxt">Count the frequency of each character in "balloon" (case-insensitive).</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="tw"><table>
           <tr><th>Character</th><th>Frequency</th></tr>
@@ -782,36 +867,35 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
           <tr><td>o</td><td class="tc">2</td></tr>
           <tr><td>n</td><td>1</td></tr>
         </table></div>
-        <div class="callout info"><strong>TOTALS</strong><p>7 total characters, 5 unique characters</p></div>
+        <div class="callout info"><strong>Totals</strong><p>7 total characters, 5 unique characters. b-a-l-l-o-o-n: b=1, a=1, l=2, o=2, n=1.</p></div>
       </div>
     </div>
   </div>
 
-  <!-- b -->
   <div class="qblock">
     <div class="sublabel">Part b</div>
     <div class="qhead"><div class="qnum">b</div><div class="qtxt">Build the Huffman tree. Show each merge step using the min-heap (priority queue).</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <h4>Start: insert all as leaf nodes</h4>
           <p>Queue: b(1), a(1), n(1), l(2), o(2)</p>
           <hr class="divider">
-          <p><span class="hl">Merge 1:</span> Take two smallest → b(1) + n(1) → internal node <span class="hl2">bn(2)</span></p>
+          <p><span class="hl">Merge 1:</span> Take two smallest &rarr; b(1) + n(1) &rarr; internal node <span class="hl2">bn(2)</span></p>
           <p>Queue: a(1), bn(2), l(2), o(2)</p>
           <hr class="divider">
-          <p><span class="hl">Merge 2:</span> Take two smallest → a(1) + bn(2) → internal node <span class="hl2">abn(3)</span></p>
+          <p><span class="hl">Merge 2:</span> Take two smallest &rarr; a(1) + bn(2) &rarr; internal node <span class="hl2">abn(3)</span></p>
           <p>Queue: l(2), o(2), abn(3)</p>
           <hr class="divider">
-          <p><span class="hl">Merge 3:</span> Take two smallest → l(2) + o(2) → internal node <span class="hl2">lo(4)</span></p>
+          <p><span class="hl">Merge 3:</span> Take two smallest &rarr; l(2) + o(2) &rarr; internal node <span class="hl2">lo(4)</span></p>
           <p>Queue: abn(3), lo(4)</p>
           <hr class="divider">
-          <p><span class="hl">Merge 4:</span> abn(3) + lo(4) → <span class="hl2">root(7)</span></p>
+          <p><span class="hl">Merge 4:</span> abn(3) + lo(4) &rarr; <span class="hl2">root(7)</span></p>
         </div>
         <div class="callout ok">
-          <strong>FINAL TREE STRUCTURE</strong>
-          <div class="code" style="margin:.4rem 0 0;color:#8be">
+          <strong>Final Tree Structure</strong>
+          <div class="code" style="margin:.4rem 0 0">
         [7]
        /    \
     [4]     [3]
@@ -820,26 +904,25 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
                 / \
               b:1  n:1</div>
         </div>
-        <div class="callout info"><strong>WHY THIS SHAPE?</strong><p>l and o have the highest frequency (2), so they end up <strong>closest to the root</strong> → shortest codes. b and n are deepest → longest codes. This minimizes total bits used.</p></div>
+        <div class="callout info"><strong>Why this shape?</strong><p>l and o have the highest frequency (2), so they end up closest to the root and get the shortest codes. b and n are deepest, getting the longest codes. This assignment minimizes total bits: frequent chars pay less per occurrence.</p></div>
       </div>
     </div>
   </div>
 
-  <!-- c -->
   <div class="qblock">
     <div class="sublabel">Part c</div>
     <div class="qhead"><div class="qnum">c</div><div class="qtxt">Assign binary codes to each character. (left = 0, right = 1)</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <p>Traverse from root: left = 0, right = 1</p>
           <ul>
-            <li>root → left → left → <span class="hl">l = <span class="hl2">00</span></span></li>
-            <li>root → left → right → <span class="hl">o = <span class="hl2">01</span></span></li>
-            <li>root → right → left → <span class="hl">a = <span class="hl2">10</span></span></li>
-            <li>root → right → right → left → <span class="hl">b = <span class="hl2">110</span></span></li>
-            <li>root → right → right → right → <span class="hl">n = <span class="hl2">111</span></span></li>
+            <li>root &rarr; left &rarr; left &rarr; <span class="hl">l = <span class="hl2">00</span></span></li>
+            <li>root &rarr; left &rarr; right &rarr; <span class="hl">o = <span class="hl2">01</span></span></li>
+            <li>root &rarr; right &rarr; left &rarr; <span class="hl">a = <span class="hl2">10</span></span></li>
+            <li>root &rarr; right &rarr; right &rarr; left &rarr; <span class="hl">b = <span class="hl2">110</span></span></li>
+            <li>root &rarr; right &rarr; right &rarr; right &rarr; <span class="hl">n = <span class="hl2">111</span></span></li>
           </ul>
         </div>
         <div class="tw"><table>
@@ -854,55 +937,53 @@ td{padding:.45rem .7rem;border:1px solid var(--border);text-align:center;color:#
     </div>
   </div>
 
-  <!-- d -->
   <div class="qblock">
     <div class="sublabel">Part d</div>
     <div class="qhead"><div class="qnum">d</div><div class="qtxt">Encode the string "balloon" using your Huffman codes. What is the encoded bitstring and total bit count?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>b → <span class="hl2">110</span></p>
-          <p>a → <span class="hl2">10</span></p>
-          <p>l → <span class="hl2">00</span></p>
-          <p>l → <span class="hl2">00</span></p>
-          <p>o → <span class="hl2">01</span></p>
-          <p>o → <span class="hl2">01</span></p>
-          <p>n → <span class="hl2">111</span></p>
+          <p>b &rarr; <span class="hl2">110</span></p>
+          <p>a &rarr; <span class="hl2">10</span></p>
+          <p>l &rarr; <span class="hl2">00</span></p>
+          <p>l &rarr; <span class="hl2">00</span></p>
+          <p>o &rarr; <span class="hl2">01</span></p>
+          <p>o &rarr; <span class="hl2">01</span></p>
+          <p>n &rarr; <span class="hl2">111</span></p>
         </div>
-        <div class="formula">110 + 10 + 00 + 00 + 01 + 01 + 111 = 1101000000101111</div>
+        <div class="formula">110 10 00 00 01 01 111 = 1101000000101111</div>
         <div class="big">Total Bits = 16</div>
       </div>
     </div>
   </div>
 
-  <!-- e -->
   <div class="qblock">
     <div class="sublabel">Part e</div>
     <div class="qhead"><div class="qnum">e</div><div class="qtxt">Compare with fixed-length encoding. How many bits does fixed-length need? How much does Huffman save?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p><strong>Fixed-length formula:</strong> ⌈log₂(N)⌉ bits per character, where N = number of unique characters</p>
+          <p><strong>Fixed-length formula:</strong> &lceil;log&sub2;(N)&rceil; bits per character, where N = number of unique characters</p>
           <br>
-          <p>5 unique characters → ⌈log₂(5)⌉ = ⌈2.32⌉ = <span class="hl3">3 bits per character</span></p>
+          <p>5 unique characters &rarr; &lceil;log&sub2;(5)&rceil; = &lceil;2.32&rceil; = <span class="hl3">3 bits per character</span></p>
           <br>
-          <p>Total: 7 characters × 3 bits = <span class="hl4">21 bits</span></p>
+          <p>Total: 7 characters &times; 3 bits = <span class="hl4">21 bits</span></p>
         </div>
         <div class="tw"><table>
           <tr><th>Method</th><th>Total Bits</th></tr>
           <tr><td>Fixed-length</td><td class="ty">21 bits</td></tr>
           <tr><td>Huffman</td><td class="tc">16 bits</td></tr>
-          <tr><td>Savings</td><td style="color:var(--green);font-weight:700">5 bits (≈24% smaller)</td></tr>
+          <tr><td>Savings</td><td style="color:var(--green);font-weight:700">5 bits (&asymp;24% smaller)</td></tr>
         </table></div>
-        <div class="callout ok"><strong>✅ CONCLUSION</strong><p>Huffman encoding reduces the size from 21 → 16 bits because frequent characters (l, o) get 2-bit codes instead of 3-bit codes.</p></div>
+        <div class="callout ok"><strong>Conclusion</strong><p>Huffman reduces size from 21 to 16 bits because l and o (frequency 2) get 2-bit codes instead of 3-bit codes — saving 1 bit per occurrence, 4 total. That's exactly the 5-bit improvement (l saves 2&times;1, o saves 2&times;1, a also gets a 2-bit code saving 1 bit).</p></div>
       </div>
     </div>
   </div>
 
   <div class="callout note" style="margin-top:2rem">
-    <strong>📝 PSEUDOCODE</strong>
+    <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
 Huffman(C):
   n = |C|, Q = priority_queue(C)  <span class="cm">← min-heap by freq</span>
@@ -916,16 +997,23 @@ Huffman(C):
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ PROBLEM 5 -->
+<!-- PROBLEM 5 -->
 <div class="page" id="p5">
   <div class="sec-head">
     <h2><span>Problem 5</span> — Fractional Knapsack</h2>
     <p><span class="badge gr">GREEDY</span> Profit/weight ratio · Sort descending · Take fractions when needed</p>
   </div>
 
+  <div class="concept">
+    <h4>Core Concept — Why Greedy Works Here</h4>
+    <p>Unlike 0/1 Knapsack, you can take any fraction of an item. This changes everything: it means you never "waste" capacity. Once you fill the knapsack optimally up to the last item, you fill the remainder with a fraction of the next best item.</p>
+    <p>The greedy strategy — sort by profit/weight ratio and take the best available — is provably optimal. The argument: if you didn't take the item with the best ratio first, you could swap it in for whatever you did take and improve profit. Therefore, always taking the highest-ratio item first can never be wrong.</p>
+    <p>Time complexity is O(n log n) due to sorting; the greedy selection itself is O(n).</p>
+  </div>
+
   <div class="callout info" style="margin-bottom:1.5rem">
-    <strong>PROBLEM STATEMENT</strong>
-    <p>Capacity: <strong>15 lbs</strong>, n=7 items. You may take <em>fractions</em> of items. Maximize total profit using a greedy strategy.</p>
+    <strong>Problem Statement</strong>
+    <p>Capacity: <strong>15 lbs</strong>, n=7 items. You may take fractions of items. Maximize total profit using a greedy strategy.</p>
     <div class="tw" style="margin-top:.75rem"><table>
       <tr><th>Item</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
       <tr><td>Profit</td><td>12</td><td>8</td><td>20</td><td>10</td><td>7</td><td>25</td><td>4</td></tr>
@@ -936,7 +1024,7 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 1</div><div class="qtxt">Calculate the profit-to-weight ratio for each item.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="tw"><table>
           <tr><th>Item</th><th>Profit</th><th>Weight</th><th>Ratio (P/W)</th></tr>
@@ -955,7 +1043,7 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 2</div><div class="qtxt">Sort items by profit-to-weight ratio in descending order.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="tw"><table>
           <tr><th>Rank</th><th>Item</th><th>Profit</th><th>Weight</th><th>Ratio</th></tr>
@@ -974,10 +1062,10 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3a</div><div class="qtxt">Take Item 5 (Profit=7, Weight=1, Ratio=7.00). Does it fit? What are the running totals?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>Remaining capacity = 15. Item 5 weighs 1 lb. 0 + 1 ≤ 15 → <span class="hl2">fits entirely</span>. Take 100%.</p>
+          <p>Remaining capacity = 15. Item 5 weighs 1 lb. 1 &le; 15 &rarr; <span class="hl2">fits entirely</span>. Take 100%.</p>
           <p>Total Weight = <span class="hl3">1 lb</span> &nbsp; Total Profit = <span class="hl2">7</span></p>
         </div>
       </div>
@@ -987,10 +1075,10 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3b</div><div class="qtxt">Take Item 6 (Profit=25, Weight=5, Ratio=5.00). Does it fit? What are the running totals?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>Remaining capacity = 14. Item 6 weighs 5 lbs. 1 + 5 ≤ 15 → <span class="hl2">fits entirely</span>. Take 100%.</p>
+          <p>Remaining capacity = 14. Item 6 weighs 5 lbs. 5 &le; 14 &rarr; <span class="hl2">fits entirely</span>. Take 100%.</p>
           <p>Total Weight = <span class="hl3">6 lbs</span> &nbsp; Total Profit = 7 + 25 = <span class="hl2">32</span></p>
         </div>
       </div>
@@ -1000,10 +1088,10 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3c</div><div class="qtxt">Take Item 1 (Profit=12, Weight=3, Ratio=4.00). Does it fit? What are the running totals?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
-          <p>Remaining capacity = 9. Item 1 weighs 3 lbs. 6 + 3 ≤ 15 → <span class="hl2">fits entirely</span>. Take 100%.</p>
+          <p>Remaining capacity = 9. Item 1 weighs 3 lbs. 3 &le; 9 &rarr; <span class="hl2">fits entirely</span>. Take 100%.</p>
           <p>Total Weight = <span class="hl3">9 lbs</span> &nbsp; Total Profit = 32 + 12 = <span class="hl2">44</span></p>
         </div>
       </div>
@@ -1013,15 +1101,15 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 3d</div><div class="qtxt">Take Item 3 (Profit=20, Weight=8, Ratio=2.50). Does it fit entirely? If not, what fraction do you take and how much profit does that add?</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="ans-card">
           <p>Remaining capacity = 6 lbs. Item 3 weighs 8 lbs. <span class="hl4">Does NOT fit entirely.</span></p>
           <br>
           <p>Fraction = remaining / weight = <span class="hl3">6/8 = 0.75</span></p>
-          <p>Profit from fraction = 20 × 0.75 = <span class="hl2">15</span></p>
+          <p>Profit from fraction = 20 &times; 0.75 = <span class="hl2">15</span></p>
           <br>
-          <p>Total Weight = 9 + 6 = <span class="hl3">15 lbs</span> (knapsack full!)</p>
+          <p>Total Weight = 9 + 6 = <span class="hl3">15 lbs</span> (knapsack full)</p>
           <p>Total Profit = 44 + 15 = <span class="hl2">59</span></p>
         </div>
       </div>
@@ -1031,7 +1119,7 @@ Huffman(C):
   <div class="qblock">
     <div class="qhead"><div class="qnum">STEP 4</div><div class="qtxt">State the final answer. List all items taken, their amounts, and total profit.</div></div>
     <div class="reveal-wrap">
-      <button class="rbtn" onclick="rev(this)">👁 Reveal answer</button>
+      <button class="rbtn" onclick="rev(this)">Show Answer</button>
       <div class="answer">
         <div class="tw"><table>
           <tr><th>Item</th><th>Fraction Taken</th><th>Weight</th><th>Profit</th></tr>
@@ -1041,14 +1129,14 @@ Huffman(C):
           <tr><td>3</td><td class="tc">75%</td><td>6 lbs</td><td class="tc">15</td></tr>
         </table></div>
         <div class="big">Maximum Profit = 59</div>
-        <div class="callout ok"><strong>✅ FINAL ANSWER</strong><p>Total Weight = 15 lbs ✓ &nbsp; Total Profit = <strong>59 units</strong></p></div>
-        <div class="callout warn"><strong>⚠️ KEY DIFFERENCE FROM 0/1 KNAPSACK</strong><p>Greedy works here because you can take fractions — you never "waste" capacity. In 0/1 Knapsack, greedy can fail because you're forced into suboptimal whole-item choices. That's why 0/1 needs DP.</p></div>
+        <div class="callout ok"><strong>Final Answer</strong><p>Total Weight = 15 lbs &check; &nbsp; Total Profit = <strong>59 units</strong></p></div>
+        <div class="callout warn"><strong>Key Difference from 0/1 Knapsack</strong><p>Greedy works here because fractions are allowed — you never waste capacity. In 0/1 Knapsack, greedy fails because taking the best-ratio item whole can leave capacity that no remaining item fits into optimally. Fractional knapsack is O(n log n); 0/1 knapsack requires O(nW) DP.</p></div>
       </div>
     </div>
   </div>
 
   <div class="callout note" style="margin-top:2rem">
-    <strong>📝 PSEUDOCODE</strong>
+    <strong>Pseudocode</strong>
     <div class="code" style="margin:.4rem 0 0">
 Sort items by p[i]/w[i] descending
 remaining = W
@@ -1071,19 +1159,40 @@ function goTo(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.getElementById(id).classList.add('on');
   document.querySelectorAll('.navbtn').forEach(b => b.classList.remove('on'));
-  if (btn) { btn.classList.add('on'); }
-  else {
+  if (btn) {
+    btn.classList.add('on');
+  } else {
     const map = {home:0,p1:1,p2:2,p3:3,p4:4,p5:5};
     document.querySelectorAll('.navbtn')[map[id]].classList.add('on');
   }
   window.scrollTo({top:0,behavior:'smooth'});
+  if (id !== 'home') updateProgress(id);
+}
+
+function updateProgress(pageId) {
+  const page = document.getElementById(pageId);
+  if (!page) return;
+  let bar = page.querySelector('.progress-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.className = 'progress-bar';
+    bar.innerHTML = '<div class="track"><div class="fill"></div></div><span class="lbl"></span>';
+    const secHead = page.querySelector('.sec-head');
+    if (secHead) secHead.after(bar);
+  }
+  const total = page.querySelectorAll('.rbtn').length;
+  const revealed = page.querySelectorAll('.rbtn.open').length;
+  bar.querySelector('.fill').style.width = total > 0 ? (revealed / total * 100) + '%' : '0%';
+  bar.querySelector('.lbl').textContent = revealed + ' / ' + total + ' revealed';
 }
 
 function rev(btn) {
   const ans = btn.nextElementSibling;
   const open = ans.classList.toggle('open');
   btn.classList.toggle('open', open);
-  btn.innerHTML = open ? '🙈 Hide answer' : '👁 Reveal answer';
+  btn.childNodes[btn.childNodes.length - 1].textContent = open ? ' Hide Answer' : ' Show Answer';
+  const page = btn.closest('.page');
+  if (page) updateProgress(page.id);
 }
 </script>
 </body>
